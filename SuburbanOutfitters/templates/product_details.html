@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+<body>
+    Product Details:<br>
+   <form class="form">
+   
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <a href="{% url 'product_list' %}" class="button">Back to Product List</a>
+   </form>
+</body>
+
+</html>
