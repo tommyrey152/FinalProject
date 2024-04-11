@@ -6,6 +6,6 @@ class ProductListView(View):
     def get(self, request):
         products = Product.objects.all()
         context = {
-            'product': products
+            'products': products
         }
         return render(request, 'product_list.html', context=context)
