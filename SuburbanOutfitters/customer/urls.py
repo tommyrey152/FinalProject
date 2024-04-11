@@ -18,4 +18,7 @@ urlpatterns = [
     path('customers/add/', CustomerAdd.as_view(), name='customer_add'),
     path('customers/update/<int:pk>/', CustomerUpdate.as_view(), name='customer_update'),
     path('customers/delete/<int:pk>/', CustomerDelete.as_view(), name='customer_delete'),
+    
+    
+  
 ]

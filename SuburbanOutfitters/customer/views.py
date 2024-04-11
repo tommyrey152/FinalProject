@@ -7,6 +7,7 @@ from .forms import CustomerForm
 
 
 
+
 class ProductListView(View):
     def get(self, request):
         products = Product.objects.all()
@@ -146,3 +147,5 @@ class CustomerDelete(View):
         customer = get_object_or_404(Customer, pk=pk)
         customer.delete()
         return redirect('customer_list')
+    
+    

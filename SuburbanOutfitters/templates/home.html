@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}Suburban Outfitters{% endblock %}
+
+{% block extra_head %}
+<style type="text/css">
+  /* Your additional CSS can go here */
+</style>
+{% endblock %}
+
+{% block content %}
+  <!-- Main page content goes here -->
+  <div class="container mt-2">
+    <!-- Example content -->
+    <h1>Welcome to Suburban Outfitters!</h1>
+    <p>Explore our latest collections and offers.</p>
+    <!-- You can link to the customer list here or any other parts of your site -->
+    <a href="{% url 'customer_list' %}" class="btn btn-primary">Our Customers</a>
+    <!-- More content -->
+  </div>
+{% endblock content %}
+
+{% block extra_scripts %}
+  <!-- Any extra JavaScript files can be included here -->
+{% endblock extra_scripts %}
