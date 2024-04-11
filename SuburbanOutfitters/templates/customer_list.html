@@ -1,14 +1,48 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <style>
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 9px #999;
+        }
+
+        .btn:hover {background-color: #3e8e41}
+
+        .btn:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
 <body>
 
-    Customers:<br>
-    <u>
-        {% for customer in customers%}
-        <li>{{ customer.firstName }}</li>
+    <h2>Customers:</h2>
+    <!-- Add Customer Link -->
+    <a href="{% url 'customer_add' %}" class="btn">Add Customer</a>
+    <br><br>
+    <ul>
+        {% for customer in customers %}
+        <li>
+            {{ customer.firstName }} {{ customer.lastName }}
+            <!-- Update Link -->
+            <a href="{% url 'customer_update' customer.pk %}">Update</a>
+            <!-- Delete Link -->
+            <a href="{% url 'customer_delete' customer.pk %}">Delete</a>
+        </li>
         {% endfor %}
-    </u>
+    </ul>
 
 </body>
-
 </html>

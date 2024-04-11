@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from .models import Product,Customer
 from .forms import ProductForm
 from django.urls import reverse
+from .forms import CustomerForm
+
+
 
 class ProductListView(View):
     def get(self, request):
@@ -14,7 +17,7 @@ class ProductListView(View):
 
 class CustomerList(View):
     def get(self,request):
-        customers = Customer.objects.all()
+        customers = Customer.objects.all
         return render(request = request,template_name = 'customer_list.html',context = {'customers':customers})
     
 
@@ -98,3 +101,48 @@ class ProductDelete(View):
         product.delete()
 
         return redirect(reverse("product_list"))
+    
+# Customer List
+class CustomerListView(View):
+    def get(self, request):
+        customers = Customer.objects.all()
+        return render(request, 'customer_list.html', {'customers': customers})
+
+# Customer Add
+class CustomerAdd(View):
+    def get(self, request):
+        form = CustomerForm()
+        return render(request, 'customer_add.html', {'form': form})
+
+    def post(self, request):
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('customer_list')
+        return render(request, 'customer_add.html', {'form': form})
+
+# Customer Update
+class CustomerUpdate(View):
+    def get(self, request, pk):
+        customer = get_object_or_404(Customer, pk=pk)
+        form = CustomerForm(instance=customer)
+        return render(request, 'customer_update.html', {'form': form, 'customer': customer})
+
+    def post(self, request, pk):
+        customer = get_object_or_404(Customer, pk=pk)
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('customer_list')
+        return render(request, 'customer_update.html', {'form': form, 'customer': customer})
+
+# Customer Delete
+class CustomerDelete(View):
+    def get(self, request, pk):
+        customer = get_object_or_404(Customer, pk=pk)
+        return render(request, 'customer_delete.html', {'customer': customer})
+
+    def post(self, request, pk):
+        customer = get_object_or_404(Customer, pk=pk)
+        customer.delete()
+        return redirect('customer_list')
