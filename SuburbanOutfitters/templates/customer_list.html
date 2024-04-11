@@ -1,45 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        .btn {
-            display: inline-block;
-            padding: 10px 15px;
-            font-size: 16px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            outline: none;
-            color: #fff;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 5px;
-            box-shadow: 0 9px #999;
-        }
+    <!-- ... other head elements ... -->
 
-        .btn:hover {background-color: #3e8e41}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-        .btn:active {
-            background-color: #3e8e41;
-            box-shadow: 0 5px #666;
-            transform: translateY(4px);
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
 
-    <h2>Customers:</h2>
-    <!-- Add Customer Link -->
-    <a href="{% url 'customer_add' %}" class="btn">Add Customer</a>
-    <br><br>
-    <ul>
+    <h2>Customers</h2>
+    <!-- Smaller Add Customer Button with green outline -->
+    <a href="{% url 'customer_add' %}" class="btn btn-outline-success btn-sm mb-3">Add Customer</a>
+    
+    <ul class="list-unstyled">
         {% for customer in customers %}
-        <li>
+        <li class="mb-2">
             {{ customer.firstName }} {{ customer.lastName }}
-            <!-- Update Link -->
-            <a href="{% url 'customer_update' customer.pk %}">Update</a>
-            <!-- Delete Link -->
-            <a href="{% url 'customer_delete' customer.pk %}">Delete</a>
+            <!-- Update Button -->
+            <a href="{% url 'customer_update' customer.pk %}" class="btn btn-outline-secondary btn-sm">Update</a>
+            <!-- Delete Button -->
+            <a href="{% url 'customer_delete' customer.pk %}" class="btn btn-outline-danger btn-sm">Delete</a>
         </li>
         {% endfor %}
     </ul>

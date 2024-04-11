@@ -1,5 +1,13 @@
+{% load static %}  <!-- Load static to use in linking CSS -->
 <!DOCTYPE html>
 <html>
+<head>
+    <!-- Link to Bootstrap CDN for quick styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Link to your custom stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
 <body>
     <h2>Update Customer:</h2>
     <form method="post">
