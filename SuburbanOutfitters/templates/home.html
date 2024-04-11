@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block content %}
+
   <!-- Main page content goes here -->
   <div class="container mt-2">
     <!-- Example content -->
@@ -18,6 +19,14 @@
     <!-- You can link to the customer list here or any other parts of your site -->
     <a href="{% url 'customer_list' %}" class="btn btn-primary">Our Customers</a>
     <!-- More content -->
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        {% include "banner_carousel.html" %}
+      </div>
+    </div>
   </div>
 {% endblock content %}
 

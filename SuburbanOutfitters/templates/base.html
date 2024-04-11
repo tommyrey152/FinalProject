@@ -5,11 +5,15 @@
   <title>{% block head_title %}{% endblock %}</title>
   {% block extra_head %}{% endblock %}
   <!-- Bootstrap CSS and other stylesheets -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <!-- Static URL for CSS -->
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </head>
 <body class="animsition">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
   {% include "nav.html" %}
   
   {% block content %}
@@ -22,5 +26,7 @@
   {% block extra_scripts %}
   <!-- Scripts overridden by child templates -->
   {% endblock extra_scripts %}
+
+
 </body>
 </html>

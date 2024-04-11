@@ -80,3 +80,20 @@ th {
 }
 
 tr:hover {background-color: #f2f2f2;} /* Light grey background on row hover */
+
+.my-carousel .carousel-item img {
+    max-width: 100%; /* Adjust the max-width as needed */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove any extra space below images */
+  }
+  
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+      background-color: rgba(128, 128, 128, 0.5); /* Gray background with some transparency */
+      border-radius: 50%; /* Makes the background rounded */
+  }
+  
+  .carousel-control-prev, .carousel-control-next {
+      width: 5%; /* Adjust the clickable area width */
+  }
+  
