@@ -6,6 +6,9 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login
 from django.forms import inlineformset_factory
+from django.shortcuts import redirect
+from .models import Product, ProductSize
+from .forms import ProductForm, ProductSizeForm
 
 
 class LoginView(FormView):
@@ -137,21 +140,31 @@ class ProductDelete(View):
     
 ProductSizeFormset = inlineformset_factory(Product, ProductSize, fields=('size', 'quantity',))
 
-def product_add_view(request):
-    if request.method == 'POST':
+class ProductAdd(View):
+    def get(self, request):
+        form = ProductForm()
+        ProductSizeFormset = inlineformset_factory(Product, ProductSize, form=ProductSizeForm, extra=1)
+        formset = ProductSizeFormset()
+        return render(request, 'product_add.html', {'form': form, 'formset': formset})
+
+    def post(self, request):
         form = ProductForm(request.POST, request.FILES)
+        ProductSizeFormset = inlineformset_factory(Product, ProductSize, form=ProductSizeForm, extra=1)
         if form.is_valid():
-            product = form.save()
-            formset = ProductSizeFormset(request.POST, instance=product)
+            created_product = form.save()
+            formset = ProductSizeFormset(request.POST, instance=created_product)
             if formset.is_valid():
                 formset.save()
-                # Redirect to product list or product detail
-                return redirect('product_list')
-    else:
-        form = ProductForm()
-        formset = ProductSizeFormset()
-    
-    return render(request, 'product_add.html', {'form': form, 'formset': formset})
+                return redirect('product_list')  # Redirect to the product list after successful save
+            else:
+                # If the formset isn't valid, render the page again with formset errors
+                return render(request, 'product_add.html', {'form': form, 'formset': formset})
+        else:
+            # If the product form isn't valid, render the page again with form errors
+            formset = ProductSizeFormset()
+            return render(request, 'product_add.html', {'form': form, 'formset': formset})
+
+
     
     
     

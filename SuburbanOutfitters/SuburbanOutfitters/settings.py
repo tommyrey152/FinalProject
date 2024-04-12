@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
     
@@ -69,12 +71,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                 'customer.context_processors.categories',
+                'customer.context_processors.categories',
             ],
-               
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = 'SuburbanOutfitters.wsgi.application'
 
@@ -138,3 +141,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

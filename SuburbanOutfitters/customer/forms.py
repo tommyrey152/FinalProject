@@ -5,7 +5,8 @@ from .models import Customer
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['productName', 'productType', 'price', 'gender', 'description', 'quantity', 'image']
+        fields = ['productName', 'productType', 'price', 'gender', 'description', 'image']
+
         
 class ProductSizeForm(forms.ModelForm):
     class Meta:
