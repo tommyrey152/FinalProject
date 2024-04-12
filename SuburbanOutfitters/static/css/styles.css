@@ -116,29 +116,41 @@ tr:hover {background-color: #f2f2f2;} /* Light grey background on row hover */
     color: #333; /* Dark grey text */
 }
 
+/* Custom Navbar Styles */
+.custom-navbar {
+    padding: 1rem 0; /* Increase padding to make navbar taller */
+    background: url('static/images/nav1.webp') no-repeat center center; 
+    background-size: cover; /* Ensure the image covers the navbar */
+  }
 
-/* Custom navbar styles */
-.navbar-custom {
-    background-color: #104b85; /* Light grey background */
-}
-
-.navbar-custom .navbar-brand,
-.navbar-custom .navbar-nav .nav-link {
-    color: #802d2d; /* Darker text for better contrast */
-}
-
-
-.navbar-custom .navbar-nav .nav-link:hover,
-.navbar-custom .navbar-nav .nav-link:focus {
-    color: #555; /* Slightly lighter text for hover state */
-}
-
-.navbar-custom .navbar-toggler {
-    border-color: #1c1d1f; /* Light grey border for the toggler */
-}
-
-.navbar-custom .navbar-toggler-icon {
-    /* Adjust icon color if needed */
-}
-
-/* ... other styles ... */
+  .custom-navbar {
+    background: url('{% static "images/nav1.webp" %}') no-repeat center center;
+    background-size: cover;
+  }
+  
+  
+  /* Product tile styles */
+  .product-tile {
+    background-color: rgb(152, 0, 0); /* White background */
+    border: 1px solid #ddd; /* Light grey border */
+    color: #333; /* Dark grey text */
+    transition: transform .2s; /* Smooth transition for hover effect */
+  }
+  
+  .product-tile:hover {
+    transform: scale(1.05); /* Slightly increase size on hover */
+    color: #000; /* Change text color on hover */
+  }
+  
+  /* Banner customization */
+  .banner-carousel {
+    height: 500px; /* Set the height of the banner */
+    /* Other styles as needed */
+  }
+  
+  /* Ensures images within the carousel fill the banner */
+  .banner-carousel .carousel-item img {
+    height: 100%;
+    object-fit: cover; /* This makes the image cover the given area */
+  }
+  
