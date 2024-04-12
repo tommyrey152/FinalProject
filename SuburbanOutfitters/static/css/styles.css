@@ -81,19 +81,51 @@ th {
 
 tr:hover {background-color: #f2f2f2;} /* Light grey background on row hover */
 
+/* Carousel Styling */
 .my-carousel .carousel-item img {
     max-width: 100%; /* Adjust the max-width as needed */
     height: auto; /* Maintain aspect ratio */
     display: block; /* Remove any extra space below images */
-  }
+}
   
-  .carousel-control-prev-icon,
-  .carousel-control-next-icon {
-      background-color: rgba(128, 128, 128, 0.5); /* Gray background with some transparency */
-      border-radius: 50%; /* Makes the background rounded */
-  }
-  
-  .carousel-control-prev, .carousel-control-next {
-      width: 5%; /* Adjust the clickable area width */
-  }
-  
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(128, 128, 128, 0.5); /* Gray background with some transparency */
+    border-radius: 50%; /* Makes the background rounded */
+    padding: 20px; /* Increase padding for larger icons */
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 5%; /* Adjust the clickable area width */
+}
+
+.carousel-indicators li {
+    text-indent: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #fff; /* Make indicators white or any other visible color */
+    cursor: pointer;
+}
+
+.carousel-indicators {
+    bottom: -10px; /* Adjust as necessary to position correctly */
+}
+
+
+.featured-message {
+    background-color: #343a40; /* Charcoal background */
+    color: #fff; /* White text color */
+}
+
+.product-tile {
+    display: block;
+    padding: 1rem;
+    background-color: #f8f9fa; /* Light grey background */
+    border: 1px solid #dedede; /* Light grey border */
+    margin-bottom: 1rem; /* Space between tiles */
+}
+
+.product-tile h3 {
+    color: #333; /* Dark grey text */
+}

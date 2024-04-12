@@ -1,16 +1,31 @@
-<!-- templates/nav.html -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{% url 'home' %}">Suburban Outfitters</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <!-- Other nav items -->
+<!-- Menu -->
+{% load static %}
+<div class="wrap_menu">
+  <nav class="menu">
+      <ul class="main_menu">
+          <!-- Home Link -->
+          <li>
+              <a href="/">Home</a>
+          </li>
+
+          <!-- Shop Dropdown -->
+          <li>
+              <a href="/shop/">Shop</a>
+              <ul class="sub_menu">
+                  <li><a href="{% url 'mens_products' %}">Men's</a></li>
+                  <li><a href="{% url 'womens_products' %}">Women's</a></li>
+                  <li><a href="{% url 'all_products' %}">All Products</a></li>
+                  <a href="{% url 'customer_list' %}" class="btn btn-primary">Our Customers</a>
+              </ul>
+          </li>
+
+          <!-- Dynamic Categories -->
+       
+
+      
+
+          <!-- User Authentication Links -->
+          
       </ul>
-    </div>
   </nav>
-  
+</div>

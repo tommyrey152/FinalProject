@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from .models import Product,Customer
+from .models import Product,Customer, Category
 from .forms import ProductForm
 from django.urls import reverse
 from .forms import CustomerForm
@@ -149,3 +149,18 @@ class CustomerDelete(View):
         return redirect('customer_list')
     
     
+def mens_products(request):
+    return render(request, 'mens_products.html')
+
+def womens_products(request):
+    return render(request, 'womens_products.html')
+
+def all_products(request):
+    return render(request, 'all_products.html')
+
+def category_detail(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    products = Product.objects.filter(category=category)
+    return render(request, 'category_detail.html', {'category': category, 'products': products})
+
+

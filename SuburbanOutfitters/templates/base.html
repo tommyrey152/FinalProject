@@ -1,4 +1,4 @@
-{% load static %} <!-- Correct, this should be at the top of your base template -->
+{% load static %} <!-- This should be at the top of your base template -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +9,10 @@
   <!-- Static URL for CSS -->
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/popper.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </head>
 <body class="animsition">
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
   {% include "nav.html" %}
   
   {% block content %}
@@ -26,7 +25,5 @@
   {% block extra_scripts %}
   <!-- Scripts overridden by child templates -->
   {% endblock extra_scripts %}
-
-
 </body>
 </html>

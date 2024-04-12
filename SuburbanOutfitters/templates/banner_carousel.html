@@ -2,11 +2,7 @@
 <!-- templates/banner_carousel.html -->
 <div id="carouselExampleIndicators" class="carousel slide my-carousel" data-ride="carousel">
     <!-- Carousel indicators -->
-    <ol class="carousel-indicators">
-        {% for i in slides %}
-        <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
-        {% endfor %}
-    </ol>
+
     <div class="carousel-inner">
         {% for i in slides %}
         <div class="carousel-item {% if forloop.first %}active{% endif %}">

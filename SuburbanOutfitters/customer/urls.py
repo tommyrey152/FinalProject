@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from . import views
 from .views import (
     ProductListView, 
     CustomerListView, CustomerAdd, CustomerUpdate, CustomerDelete, 
@@ -19,6 +20,14 @@ urlpatterns = [
     path('customers/update/<int:pk>/', CustomerUpdate.as_view(), name='customer_update'),
     path('customers/delete/<int:pk>/', CustomerDelete.as_view(), name='customer_delete'),
     
+    path('men/', views.mens_products, name='mens_products'),
+    path('women/', views.womens_products, name='womens_products'),
+    path('products/', views.all_products, name='all_products'),
+    
+    path('category/<slug:slug>/', views.category_detail, name='category_detail'),
+    
+    #path('accounts/', include('django.contrib.auth.urls')),
+    #path('account_signup/', views.signup_view, name='account_signup'),
     
   
 ]

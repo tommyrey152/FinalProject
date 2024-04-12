@@ -3,33 +3,47 @@
 
 {% block head_title %}Suburban Outfitters{% endblock %}
 
-{% block extra_head %}
-<style type="text/css">
-  /* Your additional CSS can go here */
-</style>
-{% endblock %}
-
 {% block content %}
+  <!-- Featured section -->
+  <section class="featured-message text-center py-3 bg-secondary text-white">
+    <div class="container">
+      <h2>Fresh Hues Unlocked. New Colors Are Here!</h2>
+      <p>Shop Men | Shop Women</p>
+    </div>
+  </section>
 
-  <!-- Main page content goes here -->
-  <div class="container mt-2">
-    <!-- Example content -->
-    <h1>Welcome to Suburban Outfitters!</h1>
-    <p>Explore our latest collections and offers.</p>
-    <!-- You can link to the customer list here or any other parts of your site -->
-    <a href="{% url 'customer_list' %}" class="btn btn-primary">Our Customers</a>
-    <!-- More content -->
-  </div>
-
-  <div class="container">
+  <!-- Carousel for banners -->
+  <div class="container my-4">
     <div class="row">
-      <div class="col-md-6 offset-md-3">
+      <div class="col-md-12">
         {% include "banner_carousel.html" %}
       </div>
     </div>
   </div>
-{% endblock content %}
 
-{% block extra_scripts %}
-  <!-- Any extra JavaScript files can be included here -->
-{% endblock extra_scripts %}
+  <!-- Product tiles -->
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-4">
+        <a href="{% url 'mens_products' %}" class="product-tile">
+          <h3>Men's</h3>
+          <!-- Image and content for Men's -->
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="{% url 'womens_products' %}" class="product-tile">
+          <h3>Women's</h3>
+          <!-- Image and content for Women's -->
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="{% url 'all_products' %}" class="product-tile">
+          <h3>All Products</h3>
+          <!-- Image and content for All Products -->
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional content can go here -->
+{% endblock content %}
