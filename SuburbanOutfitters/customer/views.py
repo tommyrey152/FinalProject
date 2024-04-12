@@ -6,7 +6,9 @@ from django.urls import reverse
 from .forms import CustomerForm
 
 
-
+class LoginView(View):
+    def login(request):
+        return render(request, 'login.html')
 
 class ProductListView(View):
     def get(self, request):

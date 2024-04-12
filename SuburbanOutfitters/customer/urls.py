@@ -3,16 +3,17 @@ from . import views
 from .views import (
     ProductListView, 
     CustomerListView, CustomerAdd, CustomerUpdate, CustomerDelete, 
-    ProductAdd, ProductDetails, ProductUpdate, ProductDelete
+    ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
+    LoginView
 )
 
 urlpatterns = [
     # Product-related paths
     path('shop/', ProductListView.as_view(), name="product_list"),
-    path('product_add/', ProductAdd.as_view(), name="product_add"),
-    path('product_details/<int:product_id>/', ProductDetails.as_view(), name='product_details'),
-    path('product_update/<int:product_id>/', ProductUpdate.as_view(), name='product_update'),
-    path('product_delete/<int:product_id>/', ProductDelete.as_view(), name='product_delete'),
+    path('shop/add/', ProductAdd.as_view(), name="product_add"),
+    path('shop/details/<int:product_id>/', ProductDetails.as_view(), name='product_details'),
+    path('shop/update/<int:product_id>/', ProductUpdate.as_view(), name='product_update'),
+    path('shop/delete/<int:product_id>/', ProductDelete.as_view(), name='product_delete'),
     
     # Customer-related paths
     path('customers/', CustomerListView.as_view(), name="customer_list"),
