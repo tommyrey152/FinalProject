@@ -4,43 +4,13 @@
 {% block head_title %}Suburban Outfitters{% endblock %}
 
 {% block content %}
-  <!-- Featured section -->
-  <section class="featured-message text-center py-3 bg-secondary text-white">
-    <div class="container">
-      <h2>Fresh Hues Unlocked. New Colors Are Here!</h2>
-      <p>Shop Men | Shop Women</p>
-    </div>
-  </section>
+
 
   <!-- Carousel for banners -->
   <div class="container my-4">
     <div class="row">
       <div class="col-md-12">
         {% include "banner_carousel.html" %}
-      </div>
-    </div>
-  </div>
-
-  <!-- Product tiles -->
-  <div class="container">
-    <div class="row text-center">
-      <div class="col-md-4">
-        <a href="{% url 'mens_products' %}" class="product-tile">
-          <h3>Men's</h3>
-          <!-- Image and content for Men's -->
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a href="{% url 'womens_products' %}" class="product-tile">
-          <h3>Women's</h3>
-          <!-- Image and content for Women's -->
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a href="{% url 'all_products' %}" class="product-tile">
-          <h3>All Products</h3>
-          <!-- Image and content for All Products -->
-        </a>
       </div>
     </div>
   </div>
