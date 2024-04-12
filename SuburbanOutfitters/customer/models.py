@@ -5,6 +5,7 @@ from django.urls import reverse
 class Product(models.Model):
     productName = models.CharField(max_length=200)
     productType = models.CharField(max_length=200)
+    
 
 class Customer(models.Model):
     firstName = models.CharField(max_length=100)
@@ -14,7 +15,7 @@ class Customer(models.Model):
         return self.firstName
     
     
-    
+
 def mens_products(request):
     # Your logic here
     return render(request, 'mens_products.html')

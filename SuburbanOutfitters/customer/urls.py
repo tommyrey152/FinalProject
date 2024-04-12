@@ -9,11 +9,11 @@ from .views import (
 
 urlpatterns = [
     # Product-related paths
-    path('shop/', ProductListView.as_view(), name="product_list"),
-    path('shop/add/', ProductAdd.as_view(), name="product_add"),
-    path('shop/details/<int:product_id>/', ProductDetails.as_view(), name='product_details'),
-    path('shop/update/<int:product_id>/', ProductUpdate.as_view(), name='product_update'),
-    path('shop/delete/<int:product_id>/', ProductDelete.as_view(), name='product_delete'),
+    path('products/', ProductListView.as_view(), name="product_list"),
+    path('prodcuts/add/', ProductAdd.as_view(), name="product_add"),
+    path('prodcuts/details/<int:product_id>/', ProductDetails.as_view(), name='product_details'),
+    path('prodcuts/update/<int:product_id>/', ProductUpdate.as_view(), name='product_update'),
+    path('prodcuts/delete/<int:product_id>/', ProductDelete.as_view(), name='product_delete'),
     
     # Customer-related paths
     path('customers/', CustomerListView.as_view(), name="customer_list"),
