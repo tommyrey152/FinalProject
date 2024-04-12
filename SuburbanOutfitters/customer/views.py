@@ -3,12 +3,41 @@ from django.views import View
 from .models import Product,Customer, Category
 from .forms import ProductForm
 from django.urls import reverse
-from .forms import CustomerForm
+from .forms import CustomerForm, LoginForm
+from django.views.generic.edit import FormView
+from django.contrib.auth import authenticate, login
+
+class LoginView(FormView):
+    template_name = 'login.html'
+    form_class = LoginForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['customer_form'] = CustomerForm()
+        return context
+
+    def form_valid(self, form):
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(self.request, username=username, password=password)
+        
+        if user is not None:
+            login(self.request, user)
+            if user.is_superuser:  
+                return redirect('admin_home')
+            else:
+                return redirect('home')
+        else:
+            messages.error(self.request, 'Invalid username or password.')
+            return self.render_to_response(self.get_context_data(form=form))
 
 
-class LoginView(View):
-    def login(request):
-        return render(request, 'login.html')
+#Admin Views
+class AdminHomeView(View):
+    def get(self, request):
+        return render(request, 'admin_home.html')
+
+#productViews
 
 class ProductListView(View):
     def get(self, request):
@@ -18,11 +47,6 @@ class ProductListView(View):
         }
         return render(request, 'product_list.html', context=context)
 
-class CustomerList(View):
-    def get(self,request):
-        customers = Customer.objects.all
-        return render(request = request,template_name = 'customer_list.html',context = {'customers':customers})
-    
 
 class ProductAdd(View):
 
@@ -149,20 +173,3 @@ class CustomerDelete(View):
         customer = get_object_or_404(Customer, pk=pk)
         customer.delete()
         return redirect('customer_list')
-    
-    
-def mens_products(request):
-    return render(request, 'mens_products.html')
-
-def womens_products(request):
-    return render(request, 'womens_products.html')
-
-def all_products(request):
-    return render(request, 'all_products.html')
-
-def category_detail(request, slug):
-    category = get_object_or_404(Category, slug=slug)
-    products = Product.objects.filter(category=category)
-    return render(request, 'category_detail.html', {'category': category, 'products': products})
-
-

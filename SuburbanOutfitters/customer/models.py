@@ -14,7 +14,6 @@ class Customer(models.Model):
     def __str__(self):
         return self.firstName
     
-    
 
 def mens_products(request):
     # Your logic here
