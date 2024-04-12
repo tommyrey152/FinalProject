@@ -1,14 +1,79 @@
+{% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Product</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional: include your custom stylesheet here -->
+    {% load static %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
 <body>
-    Product Update:<br>
-   <form method="post">
-   
-    {% csrf_token %}
-    {{ form.as_p }}
+    {% include "nav.html" %} <!-- Include your navigation bar HTML -->
 
-    <input type="submit" value="Update">
-   </form>
+    <div class="container mt-3">
+        <a href="{% url 'product_list' %}" class="text-decoration-none">
+            <h2>Update Product</h2>
+        </a>
+        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <!-- Wrap each field with the form-group and col classes to align items -->
+                <div class="col-md-6 mb-3">
+                    {{ form.productName.label_tag }}
+                    {{ form.productName|add_class:"form-control" }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.productType.label_tag }}
+                    {{ form.productType|add_class:"form-control" }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.price.label_tag }}
+                    {{ form.price|add_class:"form-control" }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.gender.label_tag }}
+                    {{ form.gender|add_class:"form-control" }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.description.label_tag }}
+                    {{ form.description|add_class:"form-control" }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    {{ form.size.label_tag }}
+                    {{ form.size|add_class:"form-control" }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    {{ form.quantity.label_tag }}
+                    {{ form.quantity|add_class:"form-control" }}
+                </div>
+            </div>
+            <div class="mb-3">
+                {{ form.image.label_tag }}
+                {{ form.image|add_class:"form-control-file" }}
+            </div>
+            
+            <button type="submit" class="btn btn-primary" id="updateButton">Update</button>
+
+            <script>
+            document.getElementById("updateButton").onclick = function() {
+                window.location.href = "{% url 'product_list' %}";
+            };
+            </script>
+        </form>
+    </div>
+
+    <!-- Optional: Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>

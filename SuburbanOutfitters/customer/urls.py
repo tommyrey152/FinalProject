@@ -9,17 +9,21 @@ from .views import (
 
 urlpatterns = [
     # Product-related paths
-    path('products/', ProductListView.as_view(), name="product_list"),
-    path('prodcuts/add/', ProductAdd.as_view(), name="product_add"),
-    path('prodcuts/details/<int:product_id>/', ProductDetails.as_view(), name='product_details'),
-    path('prodcuts/update/<int:product_id>/', ProductUpdate.as_view(), name='product_update'),
-    path('prodcuts/delete/<int:product_id>/', ProductDelete.as_view(), name='product_delete'),
+    path('product_list/', views.ProductListView.as_view(), name='product_list'),
+    path('product_add/', views.ProductAdd.as_view(), name='product_add'),
+    path('product_details/<int:product_id>/', views.ProductDetails.as_view(), name='product_details'),
+    path('product_update/<int:product_id>/', views.ProductUpdate.as_view(), name='product_update'),
+    path('product_delete/<int:product_id>/', views.ProductDelete.as_view(), name='product_delete'),
+
+
     
     # Customer-related paths
-    path('customers/', CustomerListView.as_view(), name="customer_list"),
-    path('customers/add/', CustomerAdd.as_view(), name='customer_add'),
-    path('customers/update/<int:pk>/', CustomerUpdate.as_view(), name='customer_update'),
-    path('customers/delete/<int:pk>/', CustomerDelete.as_view(), name='customer_delete'),
+    path('customer_list/', views.CustomerListView.as_view(), name="customer_list"),
+    path('customer_add/', views.CustomerAdd.as_view(), name='customer_add'),
+    path('customer_update/<int:pk>/', views.CustomerUpdate.as_view(), name='customer_update'),
+    path('customer_delete/<int:pk>/', views.CustomerDelete.as_view(), name='customer_delete'),
+
+    # Product paths 
 
 
     #admin-related Paths

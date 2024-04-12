@@ -1,14 +1,115 @@
+{% load static %}
+{% load widget_tweaks %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional: include your custom stylesheet here -->
+
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <style>
+        /* Custom CSS for better alignment and styling */
+        #size-container .size-entry input {
+            margin-bottom: 10px;
+        }
+        #size-container .size-entry input[type="text"],
+        #size-container .size-entry input[type="number"] {
+            width: calc(50% - 5px);
+            display: inline-block;
+            margin-right: 10px;
+        }
+        #size-container .size-entry::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn-container button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
 <body>
-    Product Add:<br>
-   <form method="post">
-   
-    {% csrf_token %}
-    {{ form.as_p }}
+    {% include "nav.html" %} <!-- Include your navigation bar HTML -->
 
-    <input type="submit" value="Add">
-   </form>
+    <div class="container mt-3">
+        <h2>
+            <a href="{% url 'product_list' %}" class="text-decoration-none">Products</a>
+        </h2>
+        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <!-- Wrap each field with the form-group and col classes to align items -->
+                <div class="col-md-6 mb-3">
+                    {{ form.productName.label_tag }}
+                    {{ form.productName|add_class:"form-control" }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.productType.label_tag }}
+                    {{ form.productType|add_class:"form-control" }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.price.label_tag }}
+                    {{ form.price|add_class:"form-control" }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.gender.label_tag }}
+                    {{ form.gender|add_class:"form-control" }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.description.label_tag }}
+                    {{ form.description|add_class:"form-control" }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.size.label_tag }}
+                    {{ form.size|add_class:"form-control" }}
+                </div>
+            </div>
+            <div class="mb-3">
+                {{ form.image.label_tag }}
+                {{ form.image|add_class:"form-control-file" }}
+            </div>
+
+            <div id="size-container">
+                <!-- Size entry template -->
+                <div class="size-entry mb-2">
+                    <input type="text" name="sizes[]" placeholder="Size" class="form-control mb-2">
+                    <input type="number" name="quantities[]" placeholder="Quantity" class="form-control mb-2">
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <button type="button" id="add-size" class="btn btn-secondary">Add Another Size</button>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Optional: Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // JavaScript to clone size inputs
+        document.getElementById('add-size').addEventListener('click', function() {
+            var container = document.getElementById('size-container');
+            var sizeEntry = container.querySelector('.size-entry').cloneNode(true);
+            sizeEntry.querySelector('input[name="sizes[]"]').value = '';
+            sizeEntry.querySelector('input[name="quantities[]"]').value = '';
+            container.appendChild(sizeEntry);
+        });
+    </script>
 </body>
-
 </html>

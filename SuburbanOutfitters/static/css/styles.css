@@ -1,11 +1,9 @@
-/* Custom styles for Suburban Outfitters */
-
 /* General body styling */
 body {
     background-color: #f8f9fa; /* A light grey background */
     color: #333; /* Dark grey text */
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Common font-stack */
-    margin: 20px; /* Default margin for larger screens */
+    margin-top: 120px; /* Adjust this value based on the actual height of your navbar */
 }
 
 /* Headers */
@@ -73,7 +71,7 @@ tr:hover {background-color: #f2f2f2;} /* Light grey background on row hover */
     height: 45; /* Maintain aspect ratio */
     display: block; /* Remove any extra space below images */
 }
-  
+
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     background-color: rgba(128, 128, 128, 0.5); /* Gray background with some transparency */
@@ -98,61 +96,72 @@ tr:hover {background-color: #f2f2f2;} /* Light grey background on row hover */
     bottom: -10px; /* Adjust as necessary to position correctly */
 }
 
-
 .featured-message {
     background-color: #343a40; /* Charcoal background */
     color: #fff; /* White text color */
 }
 
 .product-tile {
-    display: block;
-    padding: 1rem;
-    background-color: #f8f9fa; /* Light grey background */
-    border: 1px solid #dedede; /* Light grey border */
-    margin-bottom: 1rem; /* Space between tiles */
-}
-
-.product-tile h3 {
-    color: #333; /* Dark grey text */
-}
-
-/* Custom Navbar Styles */
-.custom-navbar {
-    padding: 1rem 0; /* Increase padding to make navbar taller */
-    background: url('static/images/nav1.webp') no-repeat center center; 
-    background-size: cover; /* Ensure the image covers the navbar */
-  }
-
-  .custom-navbar {
-    background: url('{% static "images/nav1.webp" %}') no-repeat center center;
-    background-size: cover;
-  }
-  
-  
-  /* Product tile styles */
-  .product-tile {
     background-color: rgb(152, 0, 0); /* White background */
     border: 1px solid #ddd; /* Light grey border */
     color: #333; /* Dark grey text */
     transition: transform .2s; /* Smooth transition for hover effect */
-  }
-  
-  .product-tile:hover {
+}
+
+.product-tile:hover {
     transform: scale(1.05); /* Slightly increase size on hover */
     color: #000; /* Change text color on hover */
-  }
-  
-  /* Banner customization */
-  .banner-carousel {
+}
+
+/* Banner customization */
+.banner-carousel {
     height: 500px; /* Set the height of the banner */
     /* Other styles as needed */
-  }
-  
-  /* Ensures images within the carousel fill the banner */
-  .banner-carousel .carousel-item img {
+}
+
+/* Ensures images within the carousel fill the banner */
+.banner-carousel .carousel-item img {
     height: 100%;
     object-fit: cover; /* This makes the image cover the given area */
-  }
-  
+}
 
+/* Custom Navbar Styles */
+/* Custom Navbar Styles */
+.custom-navbar {
+    background-image: var(--navbar-background-image);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100%; /* Full width */
+    padding-left: 0 !important; /* No padding on the left */
+    padding-right: 0 !important; /* No padding on the right */
+    margin-left: -15px; /* Adjust margin to counteract default padding */
+    margin-right: -15px; /* Adjust margin to counteract default padding */
+}
+
+/* Navbar brand/logo styles */
+.navbar-brand {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 3em;
+    color: white;
+    padding-left: 40px;
+}
+
+/* Center-aligned navbar items */
+.navbar-collapse {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+/* Navbar nav-link styles */
+.nav-link {
+    background-color: rgba(245, 245, 245, 0.8);
+    margin: 0 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+}
 

@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from .models import Product,Customer, Category
-from .forms import ProductForm
-from django.urls import reverse
-from .forms import CustomerForm, LoginForm
+from .models import Product, Customer, Category, ProductSize
+from .forms import ProductForm, CustomerForm, LoginForm
+from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login
+from django.forms import inlineformset_factory
+
 
 class LoginView(FormView):
     template_name = 'login.html'
@@ -48,19 +49,23 @@ class ProductListView(View):
         return render(request, 'product_list.html', context=context)
 
 
+from django.shortcuts import redirect
+
 class ProductAdd(View):
 
-    def get(self,request):
+    def get(self, request):
         form = ProductForm()
-        return render(request = request,template_name = 'product_add.html',context = {'form':form})
-    
-    def post(self,request):
-        form = ProductForm(request.POST)
+        return render(request, 'product_add.html', {'form': form})
 
+    def post(self, request):
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            product = form.save()
-        
-        return render(request = request,template_name = 'product_add.html',context = {'product':product,'form':form})
+            form.save()
+            # Redirect to the product list page
+            return redirect('product_list')
+        # If the form isn't valid, render the page again with form errors
+        return render(request, 'product_add.html', {'form': form})
+
     
 
 class ProductDetails(View):
@@ -85,22 +90,22 @@ class ProductDetails(View):
    
 class ProductUpdate(View):
 
-    def get(self,request,product_id):
-
+    def get(self, request, product_id):
         product = Product.objects.get(pk=product_id)
         form = ProductForm(instance=product)
-
-        return render(request = request,template_name = 'product_update.html',context = {'product':product,'form':form})
+        return render(request, 'product_update.html', {'product': product, 'form': form})
     
-    def post(self,request,product_id):
-
+    def post(self, request, product_id):
         product = Product.objects.get(pk=product_id)
-        form = ProductForm(request.POST,instance=product)
-
+        form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
-            product = form.save()
-        
-        return render(request = request,template_name = 'product_update.html',context = {'product':product,'form':form})
+            form.save()
+            # Redirect to the product list page
+            return redirect('product_list')
+        else:
+            # If the form isn't valid, render the page again with form errors
+            return render(request, 'product_update.html', {'product': product, 'form': form})
+
 
 
 class ProductDelete(View):
@@ -128,6 +133,31 @@ class ProductDelete(View):
         product.delete()
 
         return redirect(reverse("product_list"))
+    
+    
+ProductSizeFormset = inlineformset_factory(Product, ProductSize, fields=('size', 'quantity',))
+
+def product_add_view(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save()
+            formset = ProductSizeFormset(request.POST, instance=product)
+            if formset.is_valid():
+                formset.save()
+                # Redirect to product list or product detail
+                return redirect('product_list')
+    else:
+        form = ProductForm()
+        formset = ProductSizeFormset()
+    
+    return render(request, 'product_add.html', {'form': form, 'formset': formset})
+    
+    
+    
+    
+    
+    
     
 # Customer List
 class CustomerListView(View):
