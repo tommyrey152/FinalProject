@@ -1,14 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from .models import Product, Customer, Category, ProductSize
-from .forms import ProductForm, CustomerForm, LoginForm
+from .models import Product, Customer, Category
+from .forms import (
+    ProductForm, CustomerForm, LoginForm
+)
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login
-from django.forms import inlineformset_factory
-from django.shortcuts import redirect
-from .models import Product, ProductSize
-from .forms import ProductForm, ProductSizeForm
 
 
 class LoginView(FormView):
@@ -55,7 +53,6 @@ class ProductListView(View):
 from django.shortcuts import redirect
 
 class ProductAdd(View):
-
     def get(self, request):
         form = ProductForm()
         return render(request, 'product_add.html', {'form': form})
@@ -64,10 +61,9 @@ class ProductAdd(View):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            # Redirect to the product list page
             return redirect('product_list')
-        # If the form isn't valid, render the page again with form errors
         return render(request, 'product_add.html', {'form': form})
+
 
     
 
@@ -138,35 +134,21 @@ class ProductDelete(View):
         return redirect(reverse("product_list"))
     
     
-ProductSizeFormset = inlineformset_factory(Product, ProductSize, fields=('size', 'quantity',))
+    
+
 
 class ProductAdd(View):
     def get(self, request):
         form = ProductForm()
-        ProductSizeFormset = inlineformset_factory(Product, ProductSize, form=ProductSizeForm, extra=1)
-        formset = ProductSizeFormset()
-        return render(request, 'product_add.html', {'form': form, 'formset': formset})
+        return render(request, 'product_add.html', {'form': form})
 
     def post(self, request):
         form = ProductForm(request.POST, request.FILES)
-        ProductSizeFormset = inlineformset_factory(Product, ProductSize, form=ProductSizeForm, extra=1)
         if form.is_valid():
-            created_product = form.save()
-            formset = ProductSizeFormset(request.POST, instance=created_product)
-            if formset.is_valid():
-                formset.save()
-                return redirect('product_list')  # Redirect to the product list after successful save
-            else:
-                # If the formset isn't valid, render the page again with formset errors
-                return render(request, 'product_add.html', {'form': form, 'formset': formset})
-        else:
-            # If the product form isn't valid, render the page again with form errors
-            formset = ProductSizeFormset()
-            return render(request, 'product_add.html', {'form': form, 'formset': formset})
+            form.save()
+            return redirect('product_list')
+        return render(request, 'product_add.html', {'form': form})
 
-
-    
-    
     
     
     
@@ -216,3 +198,10 @@ class CustomerDelete(View):
         customer = get_object_or_404(Customer, pk=pk)
         customer.delete()
         return redirect('customer_list')
+
+
+class CustomerProductListView(View):
+    def get(self, request):
+        products = Product.objects.all()
+        print(products)  # Check if this query is returning products
+        return render(request, 'customer_product_list.html', {'products': products})

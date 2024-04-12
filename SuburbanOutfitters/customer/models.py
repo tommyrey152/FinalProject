@@ -13,19 +13,13 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='M')
     description = models.TextField(default='No description provided.')
+    size = models.CharField(max_length=50, blank=True)
     quantity = models.IntegerField(default=0)
     image = models.ImageField(upload_to='product_images/', default='default.jpg')
 
     def get_absolute_url(self):
         return reverse('product_details', kwargs={'product_id': self.pk})
 
-class ProductSize(models.Model):
-    product = models.ForeignKey(Product, related_name='sizes', on_delete=models.CASCADE)
-    size = models.CharField(max_length=10)
-    quantity = models.IntegerField(default=0)
-
-    def __str__(self):
-        return f"{self.size} - Quantity: {self.quantity}"
     
 
 

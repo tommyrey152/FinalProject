@@ -25,11 +25,7 @@
             <!-- Render Product fields here with Crispy Forms -->
             {{ form|crispy }}
 
-            <!-- No need to render each field manually if using {{ form|crispy }} -->
-            <!-- The formset for sizes will be handled by the JavaScript below -->
-
             <div class="text-center mt-4">
-                <button type="button" id="add-size" class="btn btn-secondary">Add Another Size</button>
                 <button type="submit" class="btn btn-primary">Add</button>
             </div>
         </form>
@@ -40,19 +36,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-        // JavaScript to add another size form
-        $('#add-size').on('click', function() {
-            var newForm = $('.size-form:last').clone(true);
-            var formIndex = parseInt($('#id_sizes-TOTAL_FORMS').val());
-            newForm.find(':input').each(function() {
-                var name = $(this).attr('name').replace('-' + (formIndex - 1) + '-', '-' + formIndex + '-');
-                var id = 'id_' + name;
-                $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
-            });
-            $('#id_sizes-TOTAL_FORMS').val(formIndex + 1);
-            $('.size-form:last').after(newForm); // Ensure new form is added after the last size form
-        });
-    </script>
 </body>
 </html>

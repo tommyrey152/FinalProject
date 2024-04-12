@@ -1,17 +1,15 @@
 from django import forms
-from customer.models import Product, ProductSize
+from customer.models import Product
 from .models import Customer
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['productName', 'productType', 'price', 'gender', 'description', 'image']
+        fields = ['productName', 'productType', 'price', 'gender', 'description', 'size', 'quantity', 'image']
+
+
 
         
-class ProductSizeForm(forms.ModelForm):
-    class Meta:
-        model = ProductSize
-        fields = ['size', 'quantity']
 
 class CustomerForm(forms.ModelForm):
     class Meta:
