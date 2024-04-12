@@ -122,11 +122,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Here we add the STATICFILES_DIRS setting
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    # Add more folders if you have other locations with static files
-    # Example: '/var/www/static/',
 ]
 
 # Default primary key field type
