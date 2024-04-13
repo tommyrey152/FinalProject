@@ -5,12 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Home</title>
     <!-- Include Bootstrap CSS from a CDN -->
+    {% load static %}
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/styles2.css' %}" rel="stylesheet">
     <style>
-        /* Custom styles can be added here */
+        /* Custom styles from the provided code */
+        body.admin-panel {
+            padding-top: 70px; /* This value should be equal to or greater than the height of your navbar. Adjust as needed. */
+        }
+        
+        /* Adjustments to the card styles if they're too large */
+        .admin-panel .card {
+            font-size: 1rem; /* Adjust font size */
+            margin-bottom: 1rem; /* Adjust the bottom margin of each card */
+        }
+        
+        /* Adjust button sizes if they're too big */
+        .admin-panel .btn {
+            padding: .375rem .75rem; /* Adjust padding */
+            font-size: 1rem; /* Adjust font size */
+        }
     </style>
 </head>
-<body>
+<body class="admin-panel">
+    {% include "nav.html" %}
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-8 offset-md-2">
