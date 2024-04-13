@@ -8,7 +8,7 @@
         <div class="carousel-item {% if forloop.first %}active{% endif %}">
             <a href="#carouselExampleIndicators" role="button" data-slide="next">
                 <!-- Corrected image src path -->
-                <img src="{% static 'images/banner' %}{{ forloop.counter }}.jpeg" class="d-block w-100" alt="Slide {{ forloop.counter }}">
+                <img src="{% static 'images/banner' %}{{ forloop.counter }}.jpg" class="d-block w-100" alt="Slide {{ forloop.counter }}">
             </a>
         </div>
         {% endfor %}
