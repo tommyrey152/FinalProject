@@ -18,9 +18,10 @@
             <div class="col-lg-6">
                 <!-- Left column for displaying the form -->
                 <h2>Product Details</h2>
-                <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <form method="post" action="{% url 'cart:cart_add' product_id=product.pk %}" enctype="multipart/form-data" class="needs-validation" novalidate>
                     {% csrf_token %}
                     {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary">Add to Cart</button>
                 </form>
             </div>
             <div class="col-lg-6">
@@ -41,3 +42,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

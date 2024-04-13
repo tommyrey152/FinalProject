@@ -18,5 +18,7 @@ def cart_add(request, product_id):
     return redirect('cart:cart_detail')
 
 def cart_remove(request, product_id):
-    CartItem.objects.filter(id=product_id).delete()
+    product = Product.objects.get(id=product_id)
+    CartItem.objects.filter(product=product).delete()
     return redirect('cart:cart_detail')
+
