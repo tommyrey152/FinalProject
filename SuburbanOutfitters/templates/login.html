@@ -17,6 +17,13 @@
                         <h2 class="card-title text-center">Login</h2>
                         <form method="post" class="mt-4">
                             {% csrf_token %}
+                            {% if messages %}
+                                <div class="alert alert-danger">
+                                    {% for message in messages %}
+                                        {{ message }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                             <div class="form-group">
                                 <label for="username">Username:</label>
                                 <input type="text" id="username" name="username" class="form-control">
@@ -51,4 +58,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

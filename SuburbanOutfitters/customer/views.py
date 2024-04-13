@@ -8,7 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login
 from django.views.generic.list import ListView
-
+from django.contrib import messages
 
 class LoginView(FormView):
     template_name = 'login.html'

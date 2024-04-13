@@ -190,25 +190,3 @@ tr:hover {background-color: #f2f2f2;} /* Light grey background on row hover */
 .card-header {
     text-align: left; /* Aligns the text to the left */
 }
-
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;  /* Ensures the body takes full viewport height */
-}
-
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1030;  /* Ensure navbar stays on top */
-    width: 100%;  /* Ensures the navbar spans the full width of the viewport */
-    background-size: cover; /* Ensures the background covers the entire navbar */
-    background-position: center center;
-}
-
-/* Ensures no gap from the top of the viewport */
-body {
-    padding-top: 70px; /* Adjust this value based on your navbar's actual height */
-}
