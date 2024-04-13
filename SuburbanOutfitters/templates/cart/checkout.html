@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Checkout</h2>
+  <form method="post">
+    {% csrf_token %}
+    <!-- Shipping Information -->
+    <label for="shipping_address">Shipping Address:</label>
+    <input type="text" id="shipping_address" name="shipping_address" required><br><br>
+    <label for="shipping_city">City:</label>
+    <input type="text" id="shipping_city" name="shipping_city" required><br><br>
+    <!-- Add more fields for shipping information as needed -->
+
+    <!-- Card Information -->
+    <label for="card_number">Card Number:</label>
+    <input type="text" id="card_number" name="card_number" required><br><br>
+    <label for="card_expiry">Expiration Date:</label>
+    <input type="text" id="card_expiry" name="card_expiry" placeholder="MM/YYYY" required><br><br>
+    <!-- Add more fields for card information as needed -->
+
+    <button type="submit">Place Order</button>
+  </form>
+{% endblock %}
