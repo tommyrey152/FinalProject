@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-3">
-    <h2>Women's Products</h2>
+    <a href="{% url 'womens_products' %}" class="text-decoration-none">
+        <h2>Women's Products</h2>
+    </a>
     <div class="row">
         {% for product in products %}
         <div class="col-md-4 mb-3">
             <div class="card h-100">
+                <div class="card-header text-center">
+                    <h5 class="card-title m-0">{{ product.productName }}</h5>
+                </div>
                 <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.productName }}">
                 <div class="card-body">
-                    <h5 class="card-title">{{ product.productName }}</h5>
                     <p class="card-text">{{ product.description|truncatechars:100 }}</p>
-                    <a href="{{ product.get_absolute_url }}" class="btn btn-primary">View Details</a>
+                    <div class="mt-auto text-left mb-2">
+                        <p class="text-black mb-0">$ {{ product.price }}</p>
+                    </div>
+                    <div class="mt-auto">
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary">View Details</a>
+                    </div>
                 </div>
             </div>
         </div>
         {% empty %}
-        <div class="col-12">
+        <div class="col-md-12">
             <p>No products found.</p>
         </div>
         {% endfor %}
