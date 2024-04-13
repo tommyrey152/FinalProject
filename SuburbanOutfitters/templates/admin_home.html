@@ -16,7 +16,7 @@
             <div class="col-md-8 offset-md-2">
                 <h1 class="text-center mb-5">Welcome to Admin Panel</h1>
 
-                <div class="card mb-5">
+                <div class="card mb-4">
                     <div class="card-body">
                         <h2>Customers</h2>
                         <a href="{% url 'customer_add' %}" class="btn btn-primary mr-2">Add Customer</a>
@@ -24,11 +24,27 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card mb-4">
                     <div class="card-body">
                         <h2>Products</h2>
                         <a href="{% url 'product_add' %}" class="btn btn-primary mr-2">Add Product</a>
                         <a href="{% url 'product_list' %}" class="btn btn-secondary">View Products</a>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2>Inventory</h2>
+                        <a href="#" class="btn btn-primary">Inventory Tracking</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Sales</h2>
+                        <a href="#" class="btn btn-primary mr-2">Monthly Sales</a>
+                        <a href="#" class="btn btn-secondary mr-2">Gross Reports</a>
+                        <a href="#" class="btn btn-secondary">Cost Reports</a>
                     </div>
                 </div>
             </div>
