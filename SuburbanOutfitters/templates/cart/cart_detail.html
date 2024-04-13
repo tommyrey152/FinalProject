@@ -17,12 +17,16 @@
     <tbody>
       {% for item in cart %}
         <tr>
-          <td>{{ item.product.name }}</td>
+          <td>{{ item.product }}</td>
           <td>{{ item.quantity }}</td>
           <td>${{ item.product.price }}</td>
-          <td>${{ item.total_price }}</td>
+          <td>${{ item.quantity|floatformat:"2" }}</td>
         </tr>
       {% endfor %}
+      <tr>
+        <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+        <td>${{ cart|length }}</td>
+      </tr>
     </tbody>
   </table>
   
