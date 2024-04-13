@@ -7,6 +7,7 @@ from .forms import (
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login
+from django.views.generic.list import ListView
 
 
 class LoginView(FormView):
@@ -217,3 +218,21 @@ class SearchResultsView(View):
             description__icontains=query
         )
         return render(request, 'search_results.html', {'products': products})
+    
+
+
+class MensProductsView(ListView):
+    model = Product
+    template_name = 'mens_products.html'  # Updated to reference templates at the root
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        return Product.objects.filter(gender='M')
+
+class WomensProductsView(ListView):
+    model = Product
+    template_name = 'womens_products.html'  # Updated to reference templates at the root
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        return Product.objects.filter(gender='W')

@@ -2,6 +2,7 @@ from django.db import models
 from django.shortcuts import render
 from django.urls import reverse
 
+
 class Product(models.Model):
     GENDER_CHOICES = (
         ('M', 'Men'),
@@ -70,3 +71,5 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return f'{self.address}, {self.city}, {self.state} {self.zipcode}'
+    
+    
