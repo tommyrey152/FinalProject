@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render, redirect
 from .models import CartItem
 from customer.models import Product
@@ -26,7 +23,11 @@ def checkout(request):
     if request.method == 'POST':
         # Process the checkout form data
         # This is where you would validate and save the form data to complete the checkout process
-        return redirect('cart:checkout_complete')  # Redirect to a page indicating successful checkout
+        return redirect('cart:checkout')  # Redirect to a page indicating successful checkout
     else:
         # Display the checkout form
         return render(request, 'cart/checkout.html', {})
+
+def checkout_complete(request):
+    # Add any logic here for the checkout completion
+    return render(request, 'cart/checkout_complete.html')
