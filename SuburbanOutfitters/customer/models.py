@@ -61,3 +61,12 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('category_detail', args=[str(self.id)]);
     
+class ShippingAddress(models.Model):
+    customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
+    address = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
+    zipcode = models.CharField(max_length=10)
+
+    def __str__(self):
+        return f'{self.address}, {self.city}, {self.state} {self.zipcode}'

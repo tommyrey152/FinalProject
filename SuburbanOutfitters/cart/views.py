@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import CartItem, Order, Payment, ShippingAddress
-from customer.models import Product
+from customer.models import Product, Customer
 from .forms import CheckoutForm
-from .models import Cart
+
+
 
 def cart_detail(request):
     cart_items = CartItem.objects.all()
@@ -25,28 +27,29 @@ def checkout(request):
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
         if form.is_valid():
+            # Retrieve the current customer
+            customer = Customer.objects.get(id=request.user.id)
             shipping_address = ShippingAddress.objects.create(
-                street_address=form.cleaned_data['shipping_address'],
+                customer=customer,
+                address=customer.address,
                 city=form.cleaned_data['city'],
                 state=form.cleaned_data['state'],
-                zipcode=form.cleaned_data.get('zipcode', '')  # Use get method with a default value
-            )
-            payment = Payment.objects.create(
-                card_number=form.cleaned_data['card_number'],
-                expiration_date=form.cleaned_data['expiration_date'],
-                cvv=form.cleaned_data['cvv']
+                zipcode=form.cleaned_data['zipcode']
             )
             order = Order.objects.create(
-                shipping_address=shipping_address,
-                payment=payment
+                # Your other fields
+                shipping_address=shipping_address
             )
-            return render(request, 'cart/checkout_complete.html', {'order': order})
+            return redirect('checkout_complete')  # Redirect to a success page
     else:
         form = CheckoutForm()
-    return render(request, 'cart/checkout.html', {'form': form})
 
+    context = {
+        'form': form
+    }
+    return render(request, 'cart/checkout.html', context)
 
 
 def checkout_complete(request):
-    # Add any logic here for the checkout completion
+    print("Redirecting to checkout_complete")
     return render(request, 'cart/checkout_complete.html')
