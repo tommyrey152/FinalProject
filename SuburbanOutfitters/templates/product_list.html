@@ -24,6 +24,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Type</th>
+                        <th>Image</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -32,6 +33,7 @@
                     <tr>
                         <td>{{ product.productName }}</td>
                         <td>{{ product.productType }}</td>
+                        <td><img src="{{ product.image.url }}" alt="{{ product.productName }}" style="max-width: 100px;"></td>
                         <td class="text-center">
                             <!-- Button group to keep buttons together and centered -->
                             <div class="btn-group" role="group" aria-label="Basic example">
@@ -43,7 +45,7 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="3">No products found.</td>
+                        <td colspan="4">No products found.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -58,3 +60,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

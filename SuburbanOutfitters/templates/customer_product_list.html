@@ -1,26 +1,47 @@
-{% extends 'base.html' %}
 {% load static %}
-
-{% block content %}
-<div class="container mt-4">
-    <div class="row">
-        {% for product in products %}
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="{{ product.image.url }}" alt="{{ product.productName }}" class="bd-placeholder-img card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.productName }}</h5>
-                    <p class="card-text">{{ product.description|truncatechars:75 }}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <a href="{{ product.get_absolute_url }}" class="btn btn-sm btn-outline-secondary">View</a>
-                        </div>
-                        <small class="text-muted">${{ product.price }}</small>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include "nav.html" %}
+    
+    <div class="container mt-3">
+        <a href="{% url 'product_list' %}" class="text-decoration-none">
+            <h2>Products</h2>
+        </a>
+        <a href="{% url 'product_add' %}" class="btn btn-outline-success btn-sm mb-3">Add Product</a>
+        
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="{{ product.image_url }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.productName }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <a href="{% url 'product_details' product.id %}" class="btn btn-primary">Details</a>
                     </div>
                 </div>
             </div>
+            {% empty %}
+            <div class="col-md-12">
+                <p>No products found.</p>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        
     </div>
-</div>
-{% endblock %}
+
+    <!-- Optional Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

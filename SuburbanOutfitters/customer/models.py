@@ -20,6 +20,13 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product_details', kwargs={'product_id': self.pk})
 
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+        else:
+            return "/media/default.jpg"
+
     
 
 
