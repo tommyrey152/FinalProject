@@ -1,40 +1,51 @@
 {% load static %}
-{% load widget_tweaks %}
-{% load crispy_forms_tags %}
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Add Product</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
-    <style>
-        /* Add your custom styles here if necessary */
-    </style>
+    <title>Product List</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     {% include "nav.html" %}
-
+    
     <div class="container mt-3">
-        <h2>
-            <a href="{% url 'product_list' %}" class="text-decoration-none">Products</a>
-        </h2>
-        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-            {% csrf_token %}
-            <!-- Render Product fields here with Crispy Forms -->
-            {{ form|crispy }}
-
-            <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary">Add</button>
+        <a href="{% url 'product_list' %}" class="text-decoration-none">
+            <h2>Products</h2>
+        </a>
+        <a href="{% url 'product_add' %}" class="btn btn-outline-success btn-sm mb-3">Add Product</a>
+        
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="card-title m-0">{{ product.productName }}</h5>
+                    </div>
+                    <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.productName }}">
+                    <div class="card-body d-flex flex-column">
+                        <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                        <div class="mt-auto">
+                            <a href="{% url 'product_details' product.id %}" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </form>
+            {% empty %}
+            <div class="col-md-12">
+                <p>No products found.</p>
+            </div>
+            {% endfor %}
+        </div>
+        
     </div>
 
-    <!-- Include Bootstrap JS and jQuery -->
+    <!-- Optional Bootstrap JS and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 </html>

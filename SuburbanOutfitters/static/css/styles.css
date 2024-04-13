@@ -126,7 +126,6 @@ tr:hover {background-color: #f2f2f2;} /* Light grey background on row hover */
 }
 
 /* Custom Navbar Styles */
-/* Custom Navbar Styles */
 .custom-navbar {
     background-image: var(--navbar-background-image);
     background-size: cover;
@@ -165,3 +164,29 @@ tr:hover {background-color: #f2f2f2;} /* Light grey background on row hover */
     font-weight: bold;
 }
 
+/* Card image and body styles */
+.card-img-top {
+    width: 100%; /* ensures the image covers the full width */
+    height: 250px; /* increase the height to show more of the image */
+    object-fit: cover; /* keeps the aspect ratio but covers the area */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card {
+    display: flex;
+    flex-direction: column; /* stacks components vertically */
+    height: 100%; /* full height */
+}
+
+.card-body {
+    flex: 1; /* Allows the card body to expand and fill the space */
+}
+
+.card-header {
+    text-align: left; /* Aligns the text to the left */
+}
