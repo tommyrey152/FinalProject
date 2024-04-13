@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import CartItem
+from .models import CartItem, Order, Payment, ShippingAddress
 from customer.models import Product
 from .forms import CheckoutForm
-from .models import Order
+from .models import Cart
 
 def cart_detail(request):
     cart_items = CartItem.objects.all()
@@ -25,18 +25,26 @@ def checkout(request):
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
         if form.is_valid():
-            # Process the form data
-            shipping_address = form.cleaned_data['shipping_address']
-            city = form.cleaned_data['city']
-            card_number = form.cleaned_data['card_number']
-            expiration_date = form.cleaned_data['expiration_date']
-            cvv = form.cleaned_data['cvv']
-            # Redirect to a success page or do something else
-            return redirect('cart:checkout_complete')
+            shipping_address = ShippingAddress.objects.create(
+                street_address=form.cleaned_data['shipping_address'],
+                city=form.cleaned_data['city'],
+                state=form.cleaned_data['state'],
+                zipcode=form.cleaned_data.get('zipcode', '')  # Use get method with a default value
+            )
+            payment = Payment.objects.create(
+                card_number=form.cleaned_data['card_number'],
+                expiration_date=form.cleaned_data['expiration_date'],
+                cvv=form.cleaned_data['cvv']
+            )
+            order = Order.objects.create(
+                shipping_address=shipping_address,
+                payment=payment
+            )
+            return render(request, 'cart/checkout_complete.html', {'order': order})
     else:
         form = CheckoutForm()
-    
     return render(request, 'cart/checkout.html', {'form': form})
+
 
 
 def checkout_complete(request):
