@@ -56,7 +56,7 @@ def checkout(request):
                 # Your other fields
                 shipping_address=shipping_address
             )
-            return redirect('checkout_complete')  # Redirect to a success page
+            return redirect('cart:checkout_complete')  # Redirect to a success page
     else:
         form = CheckoutForm()
 
