@@ -1,5 +1,3 @@
-<!-- cart/templates/cart/detail.html -->
-
 {% extends 'base.html' %}
 {% load static %}
 
@@ -12,6 +10,7 @@
         <th>Quantity</th>
         <th>Price</th>
         <th>Total</th>
+        <th>Actions</th>  <!-- Add a new column for actions -->
       </tr>
     </thead>
     <tbody>
@@ -21,15 +20,23 @@
           <td>{{ item.quantity }}</td>
           <td>${{ item.product.price }}</td>
           <td>${{ item.quantity|floatformat:"2" }}</td>
+          <td>
+            <!-- Edit button -->
+            <a href="{% url 'cart:cart_edit' item.id %}">Edit</a>
+
+            <!-- Delete button -->
+            <a href="{% url 'cart:cart_remove' item.product.id %}">Delete</a>
+          </td>
         </tr>
       {% endfor %}
       <tr>
-        <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+        <td colspan="4" style="text-align: right;"><strong>Total:</strong></td>
         <td>${{ cart|length }}</td>
       </tr>
     </tbody>
   </table>
   
+  <!-- Checkout button -->
   <form action="{% url 'cart:checkout' %}" method="post">
     {% csrf_token %}
     <button type="submit">Checkout</button>

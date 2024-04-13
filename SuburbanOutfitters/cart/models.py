@@ -13,24 +13,8 @@ class CartItem(models.Model):
     def __str__(self):
         return f"{self.quantity} x {self.product.name}"
 
-class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
-    date_ordered = models.DateTimeField(auto_now_add=True)
-    complete = models.BooleanField(default=False)
-    transaction_id = models.CharField(max_length=100, null=True)
-    shipping_address = models.ForeignKey(ShippingAddress, on_delete=models.CASCADE)
-    zipcode = models.CharField(max_length=100, null=True)
-    payment = models.ForeignKey('cart.Payment', on_delete=models.SET_NULL, blank=True, null=True)
-    date_ordered = models.DateTimeField(default=timezone.now)
-    shipping_address = models.ForeignKey('ShippingAddress', on_delete=models.CASCADE, null=True)
-
-    def __init__(self, *args, **kwargs):
-        if 'shipping_address' not in kwargs:
-            kwargs['shipping_address'] = ShippingAddress.objects.get_or_create(default_address=True)
-        super().__init__(*args, **kwargs)
-
 class ShippingAddress(models.Model):
-    customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='shipping_addresses')
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     state = models.CharField(max_length=255)
@@ -38,7 +22,7 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return f'{self.address}, {self.city}, {self.state} {self.zipcode}'
-    
+
 class Payment(models.Model):
     card_number = models.CharField(max_length=16)
     expiration_date = models.CharField(max_length=7)
@@ -46,3 +30,16 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"Payment: {self.card_number}, {self.expiration_date}, {self.cvv}"
+
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    date_ordered = models.DateTimeField(auto_now_add=True)
+    complete = models.BooleanField(default=False)
+    transaction_id = models.CharField(max_length=100, null=True)
+    shipping_address = models.ForeignKey(ShippingAddress, on_delete=models.CASCADE, null=True)
+    zipcode = models.CharField(max_length=100, null=True)
+    payment = models.ForeignKey('cart.Payment', on_delete=models.SET_NULL, blank=True, null=True)
+    date_ordered = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Order {self.id}"

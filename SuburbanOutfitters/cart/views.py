@@ -1,15 +1,15 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import CartItem, Order, Payment, ShippingAddress
 from customer.models import Product, Customer
 from .forms import CheckoutForm
 
-
-
+@login_required
 def cart_detail(request):
     cart_items = CartItem.objects.all()
     return render(request, 'cart/cart_detail.html', {'cart': cart_items})
 
+@login_required
 def cart_add(request, product_id):
     product = Product.objects.get(id=product_id)
     cart_item, created = CartItem.objects.get_or_create(product=product)
@@ -18,11 +18,27 @@ def cart_add(request, product_id):
     cart_item.save()
     return redirect('cart:cart_detail')
 
+@login_required
 def cart_remove(request, product_id):
     product = Product.objects.get(id=product_id)
     CartItem.objects.filter(product=product).delete()
     return redirect('cart:cart_detail')
 
+@login_required
+def cart_edit(request, cart_item_id):
+    cart_item = get_object_or_404(CartItem, id=cart_item_id)
+    if request.method == 'POST':
+        quantity = request.POST.get('quantity')
+        if quantity:
+            cart_item.quantity = quantity
+            cart_item.save()
+        else:
+            cart_item.delete()
+        return redirect('cart:cart_detail')
+    else:
+        return render(request, 'cart/cart_edit.html', {'cart_item': cart_item})
+
+@login_required
 def checkout(request):
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
@@ -49,7 +65,7 @@ def checkout(request):
     }
     return render(request, 'cart/checkout.html', context)
 
-
+@login_required
 def checkout_complete(request):
     print("Redirecting to checkout_complete")
     return render(request, 'cart/checkout_complete.html')
