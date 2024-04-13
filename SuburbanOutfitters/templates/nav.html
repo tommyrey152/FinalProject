@@ -35,33 +35,10 @@
         </ul>
         
         <!-- Right-aligned search form -->
-        <style>
-            /* Custom styles for the search input */
-            .search-input {
-              background-color: #fff; /* Gray background */
-              font-weight: bold;
-              border: 1px solid #ced4da; /* Default Bootstrap border */
-            }
-          
-            /* Custom styles for the search button */
-            .search-button {
-              font-weight: bold;
-              background-color: #ccc; /* White background */
-              color: #28a745; /* Green text */
-              border: 1px solid #ced4da; /* Default Bootstrap border */
-            }
-          
-            /* Hover effect for the search button */
-            .search-button:hover {
-              background-color: #28a745; /* Green background */
-              color: #fff; /* White text */
-            }
-        </style>
-          
         <!-- Search form -->
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2 search-input" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn my-2 my-sm-0 search-button" type="submit">Search</button>
+        <form class="form-inline my-2 my-lg-0" action="{% url 'customer:search_results' %}" method="get">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+            <button class="btn my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
 </nav>

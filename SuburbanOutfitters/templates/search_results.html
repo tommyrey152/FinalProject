@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h2>Search Results</h2>
+    <div class="container mt-3">
+        {% if products %}
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-header text-center">
+                                <h5 class="card-title m-0">{{ product.productName }}</h5>
+                            </div>
+                            <!-- Assuming you have a method get_image_url or a field image_url in your model -->
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.productName }}">
+                            <div class="card-body">
+                                <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                                <div class="mt-auto text-left mb-2">
+                                    <p class="text-black mb-0">$ {{ product.price }}</p>
+                                </div>
+                                <div class="mt-auto">
+                                    <!-- Ensure the 'product_details' view and URL pattern exist and are correctly configured -->
+                                    <a href="{% url 'product_details' product.id %}" class="btn btn-primary">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="col-md-12">
+                <p>No products found.</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

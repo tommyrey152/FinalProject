@@ -4,7 +4,7 @@ from .views import (
     ProductListView, 
     CustomerListView, CustomerAdd, CustomerUpdate, CustomerDelete, 
     ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
-    LoginView, AdminHomeView, CustomerProductListView
+    LoginView, AdminHomeView, CustomerProductListView, SearchResultsView
 )
 
 urlpatterns = [
@@ -33,6 +33,9 @@ urlpatterns = [
 
     #login path
     path('login/', views.LoginView.as_view(), name='login'),
+    
+    #search bar
+    path('search/', SearchResultsView.as_view(), name='search_results'),
 
     
     

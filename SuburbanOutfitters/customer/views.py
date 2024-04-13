@@ -205,3 +205,15 @@ class CustomerProductListView(View):
         products = Product.objects.all()
         print(products)  # Check if this query is returning products
         return render(request, 'customer_product_list.html', {'products': products})
+    
+    
+    
+class SearchResultsView(View):
+    def get(self, request):
+        query = request.GET.get('q', '')  # Retrieve the search query
+        products = Product.objects.filter(
+            productName__icontains=query
+        ) | Product.objects.filter(
+            description__icontains=query
+        )
+        return render(request, 'search_results.html', {'products': products})
