@@ -27,16 +27,16 @@ class Product(models.Model):
         else:
             return "/media/default.jpg"
 
-    
-
+    def __str__(self):
+        return self.productName
 
 class Customer(models.Model):
     firstName = models.CharField(max_length=100)
     lastName = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
+
     def __str__(self):
         return self.firstName
-    
 
 def mens_products(request):
     # Your logic here
@@ -57,7 +57,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-    
-    def get_absolute_url(self):
-        return reverse('category_detail', args=[str(self.id)])
 
+    def get_absolute_url(self):
+        return reverse('category_detail', args=[str(self.id)]);
+    
