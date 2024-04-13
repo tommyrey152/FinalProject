@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import CartItem
 from customer.models import Product
+from .forms import CheckoutForm
+from .models import Order
 
 def cart_detail(request):
     cart_items = CartItem.objects.all()
@@ -21,12 +23,21 @@ def cart_remove(request, product_id):
 
 def checkout(request):
     if request.method == 'POST':
-        # Process the checkout form data
-        # This is where you would validate and save the form data to complete the checkout process
-        return redirect('cart:checkout')  # Redirect to a page indicating successful checkout
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            # Process the form data
+            shipping_address = form.cleaned_data['shipping_address']
+            city = form.cleaned_data['city']
+            card_number = form.cleaned_data['card_number']
+            expiration_date = form.cleaned_data['expiration_date']
+            cvv = form.cleaned_data['cvv']
+            # Redirect to a success page or do something else
+            return redirect('cart:checkout_complete')
     else:
-        # Display the checkout form
-        return render(request, 'cart/checkout.html', {})
+        form = CheckoutForm()
+    
+    return render(request, 'cart/checkout.html', {'form': form})
+
 
 def checkout_complete(request):
     # Add any logic here for the checkout completion
