@@ -18,18 +18,17 @@
             </thead>
             <tbody>
                 {% for product in products %}
-                <tr data-id="{{ product.id }}">
+                <tr>
                     <td>{{ product.productName }}</td>
                     <td>{{ product.productType }}</td>
-                    <td>
-                        <span class="quantity-display">{{ product.quantity }}</span>
-                        <input type="number" class="quantity-input form-control" value="{{ product.quantity }}" style="display: none;">
-                    </td>
+                    <td>{{ product.quantity }}</td>
                     <td>${{ product.price }}</td>
-                    <td><img src="{{ product.image.url }}" alt="{{ product.productName }}" style="max-width: 100px;"></td>
                     <td>
-                        <button class="btn btn-primary edit-button">Edit</button>
-                        <button class="btn btn-success save-button" style="display: none;">Save</button>
+                        <img src="{{ product.image.url }}" alt="{{ product.productName }}" style="max-width: 100px;">
+                    </td>
+                    <td>
+                        <!-- Link to the product update view -->
+                        <a href="{% url 'product_update' product.id %}" class="btn btn-sm btn-primary">Edit</a>
                     </td>
                 </tr>
                 {% empty %}
@@ -41,44 +40,4 @@
         </table>
     </div>
 </div>
-
-<input type="hidden" id="csrfToken" value="{{ csrf_token }}">
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('.edit-button').click(function() {
-        let parentRow = $(this).closest('tr');
-        parentRow.find('.quantity-display').hide();
-        parentRow.find('.quantity-input').show().focus();
-        $(this).siblings('.save-button').show();
-        $(this).hide();
-    });
-
-    $('.save-button').click(function() {
-        let parentRow = $(this).closest('tr');
-        let productId = parentRow.data('id');
-        let newQuantity = parentRow.find('.quantity-input').val();
-        let buttonContext = $(this); // Preserve the button context outside of the AJAX call
-
-        $.ajax({
-            url: '{% url "update_quantity" 0 %}'.replace('0', productId),
-            type: 'POST',
-            data: {
-                'quantity': newQuantity,
-                'csrfmiddlewaretoken': $('#csrfToken').val()
-            },
-            success: (response) => { // Use arrow function here
-                parentRow.find('.quantity-display').text(response.new_quantity).show();
-                parentRow.find('.quantity-input').hide();
-                parentRow.find('.edit-button').show();
-                buttonContext.hide(); // Use preserved context
-            },
-            error: () => {
-                alert('Failed to update quantity.');
-            }
-        });
-    });
-});
-</script>
 {% endblock %}

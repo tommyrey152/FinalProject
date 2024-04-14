@@ -5,7 +5,7 @@ from .views import (
     CustomerListView, CustomerAdd, CustomerUpdate, CustomerDelete, 
     ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
     LoginView, AdminHomeView, CustomerProductListView, SearchResultsView, MensProductsView, WomensProductsView,
-    CustomerCreationForm,InventoryListView,UpdateQuantityView
+    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView
 )
 
 urlpatterns = [
@@ -48,6 +48,7 @@ urlpatterns = [
     #inventory page
    path('inventory/', InventoryListView.as_view(), name='inventory_list'),
    path('product/<int:pk>/update_quantity/', UpdateQuantityView.as_view(), name='update_quantity'),
+
 
     
     #path('accounts/', include('django.contrib.auth.urls')),

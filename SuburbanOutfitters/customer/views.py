@@ -19,6 +19,8 @@ from django.views import View
 from .models import Product
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.views.generic import ListView
+
 
 
 
@@ -32,19 +34,22 @@ class InventoryListView(ListView):
     
 class UpdateQuantityView(View):
     def post(self, request, *args, **kwargs):
-        try:
-            product_id = kwargs.get('pk')
-            new_quantity = request.POST.get('quantity')
-            product = Product.objects.get(pk=product_id)
-            product.quantity = new_quantity
-            product.save()
+        product_id = kwargs.get('pk')
+        new_quantity = request.POST.get('quantity')
+        product = Product.objects.get(pk=product_id)
+        product.quantity = new_quantity
+        product.save()
+        return JsonResponse({'status': 'success', 'new_quantity': new_quantity})
+    
+    
+from django.http import JsonResponse
+from django.core.exceptions import ValidationError
 
-            return JsonResponse({'new_quantity': new_quantity})
-        except Product.DoesNotExist:
-            return JsonResponse({'error': 'Product not found'}, status=404)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-
+class InventoryListView(ListView):
+    model = Product
+    context_object_name = 'products'
+    template_name = 'inventory_list.html'
+    queryset = Product.objects.all().order_by('productName')
 
 class CustomerCreationForm(forms.ModelForm):
     class Meta:
