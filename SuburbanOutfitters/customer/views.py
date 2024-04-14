@@ -14,6 +14,11 @@ from django.contrib.auth.hashers import make_password
 from django.urls import reverse_lazy
 from django.contrib.auth.hashers import make_password
 from django import forms
+from django.http import JsonResponse
+from django.views import View
+from .models import Product
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 
 
@@ -23,7 +28,22 @@ class InventoryListView(ListView):
     context_object_name = 'products'
     template_name = 'inventory_list.html'
     queryset = Product.objects.all().order_by('productName')
+    
+    
+class UpdateQuantityView(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            product_id = kwargs.get('pk')
+            new_quantity = request.POST.get('quantity')
+            product = Product.objects.get(pk=product_id)
+            product.quantity = new_quantity
+            product.save()
 
+            return JsonResponse({'new_quantity': new_quantity})
+        except Product.DoesNotExist:
+            return JsonResponse({'error': 'Product not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
 
 
 class CustomerCreationForm(forms.ModelForm):
