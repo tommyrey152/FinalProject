@@ -6,7 +6,7 @@ from .views import (
     CustomerListView, CustomerAdd, CustomerUpdate, CustomerDelete, 
     ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
     LoginView, AdminHomeView, CustomerProductListView, SearchResultsView, MensProductsView, WomensProductsView,
-    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView, ProfileUpdateView, TrackOrderView, monthly_reports
+    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView, ProfileUpdateView, TrackOrderView, TrackOrderResultView, monthly_reports
 
 )
 
@@ -39,6 +39,8 @@ urlpatterns = [
     path('profile/update/', ProfileUpdateView.as_view(), name='profile_update'),
     path('profile/', ProfileView.as_view(), name='profile'),
     path('track_order/', TrackOrderView.as_view(), name='track_order'),
+    path('track_order_result/', TrackOrderResultView.as_view(), name='track_order_result'),
+
     
     
     

@@ -26,7 +26,7 @@ from django.db.models import Sum
 from datetime import datetime
 from datetime import timedelta
 from cart.models import Order
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.core.exceptions import ValidationError
 
 class InventoryListView(ListView):
@@ -424,3 +424,9 @@ class TrackOrderView(View):
             }
 
         return render(request, 'track_order_result.html', context=context)
+    
+
+class TrackOrderResultView(View):
+    def get(self, request):
+        # Add any necessary logic here
+        return render(request, 'track_order_result.html')
