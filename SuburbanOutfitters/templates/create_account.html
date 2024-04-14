@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+</head>
+
+<body>
+    <h1>Create Account</h1>
+
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {% if request.method == 'POST' %}
+            {% if form.errors %}
+            <div>
+                <strong>Error!</strong> Please correct the following errors:
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% endif %}
+            <div>
+                <label for="username">Username:</label>
+                {{ form.username }}
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                {{ form.password }}
+            </div>
+            <div>
+                <label for="firstName">First Name:</label>
+                {{ form.firstName }}
+            </div>
+            <div>
+                <label for="lastName">Last Name:</label>
+                {{ form.lastName }}
+            </div>
+            <div>
+                <label for="address">Address:</label>
+                {{ form.address }}
+            </div>
+            <button type="submit">Create Account</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

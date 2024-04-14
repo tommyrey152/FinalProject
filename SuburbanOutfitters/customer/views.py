@@ -2,37 +2,55 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from .models import Product, Customer, Category
 from .forms import (
-    ProductForm, CustomerForm, LoginForm
+    ProductForm, CustomerForm, LoginForm, CustomerCreationForm,
 )
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login
 from django.views.generic.list import ListView
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.hashers import make_password
+
+
+
+class CreateAccount(View):
+    def get(self, request):
+        form = CustomerCreationForm()
+        return render(request, 'create_account.html', {'form': form})
+
+    def post(self, request):
+        form = CustomerCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.password = make_password(form.cleaned_data['password'])
+            user.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            print(form.errors)   
+            return render(request, 'create_account.html', {'form': form})
+
 
 class LoginView(FormView):
     template_name = 'login.html'
     form_class = LoginForm
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['customer_form'] = CustomerForm()
-        return context
-
     def form_valid(self, form):
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
+        
         user = authenticate(self.request, username=username, password=password)
         
         if user is not None:
             login(self.request, user)
-            if user.is_superuser:  
+            if user.is_superuser:
                 return redirect('admin_home')
             else:
                 return redirect('home')
         else:
             messages.error(self.request, 'Invalid username or password.')
-            return self.render_to_response(self.get_context_data(form=form))
+            return redirect('login')
 
 
 #Admin Views
