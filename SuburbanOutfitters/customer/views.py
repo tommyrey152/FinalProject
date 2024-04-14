@@ -48,7 +48,6 @@ class LoginView(FormView):
                 return redirect('admin_home')
             else:
                 return redirect('home')
-            return redirect('login')
 
 
 #Admin Views
