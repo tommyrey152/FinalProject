@@ -77,12 +77,18 @@ class ShippingAddress(models.Model):
     def __str__(self):
         return f'{self.address}, {self.city}, {self.state} {self.zipcode}'
     
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     address = models.TextField()
     phone_number = models.CharField(max_length=15)
     email = models.EmailField()
+
+    def __str__(self):
+        return self.name
+
+   
 
 # Extend the User model with a one-to-one relationship
 User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])

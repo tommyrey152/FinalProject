@@ -11,8 +11,6 @@ from django.views.generic.list import ListView
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.hashers import make_password
-from django.urls import reverse_lazy
-from django.contrib.auth.hashers import make_password
 from django import forms
 from django.http import JsonResponse
 from django.views import View
@@ -23,11 +21,13 @@ from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView
 from .models import Profile
-
+from django.utils import timezone
 from django.db.models import Sum
 from datetime import datetime
-
-
+from datetime import timedelta
+from cart.models import Order
+from django.http import JsonResponse
+from django.core.exceptions import ValidationError
 
 class InventoryListView(ListView):
     model = Product
@@ -35,7 +35,7 @@ class InventoryListView(ListView):
     template_name = 'inventory_list.html'
     queryset = Product.objects.all().order_by('productName')
     
-    
+
 class UpdateQuantityView(View):
     def post(self, request, *args, **kwargs):
         product_id = kwargs.get('pk')
@@ -45,9 +45,6 @@ class UpdateQuantityView(View):
         product.save()
         return JsonResponse({'status': 'success', 'new_quantity': new_quantity})
     
-    
-from django.http import JsonResponse
-from django.core.exceptions import ValidationError
 
 class InventoryListView(ListView):
     model = Product
@@ -87,7 +84,6 @@ class LoginView(FormView):
             messages.error(self.request, 'Invalid username or password.')
             return redirect('login')
             #return redirect('login')
-
 
 
 #Admin Views
@@ -400,3 +396,31 @@ class ProfileUpdateView(View):
             form.save()
             return redirect('profile')
         return render(request, 'profile_update.html', {'form': form})
+    
+
+class TrackOrderView(View):
+    def get(self, request):
+        return render(request, 'track_order_result.html')
+
+    def post(self, request):
+        order_id = request.POST.get('order_id')
+        try:
+            order = Order.objects.get(id=order_id)
+            days_since_order = (timezone.now() - order.date_ordered).days
+
+            if days_since_order <= 5:
+                status = 'PENDING'
+            elif 5 < days_since_order <= 10:
+                status = 'SHIPPED'
+            else:
+                status = 'DELIVERED'
+
+            context = {
+                'status': status
+            }
+        except Order.DoesNotExist:
+            context = {
+                'status': 'ORDER NOT FOUND'
+            }
+
+        return render(request, 'track_order_result.html', context=context)

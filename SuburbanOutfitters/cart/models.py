@@ -1,6 +1,5 @@
 from django.db import models
 from customer.models import Product, Customer, ShippingAddress
-from django.utils import timezone
 
 class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -39,8 +38,10 @@ class Order(models.Model):
     shipping_address = models.ForeignKey(ShippingAddress, on_delete=models.CASCADE, null=True)
     zipcode = models.CharField(max_length=100, null=True)
     payment = models.ForeignKey('cart.Payment', on_delete=models.SET_NULL, blank=True, null=True)
+    
     def __str__(self):
         return f"Order {self.id}"
+    
     def get_total_price(self):
         total = sum(item.product.price * item.quantity for item in self.items.all())  # Use 'items' instead of 'cartitem_set'
         return total

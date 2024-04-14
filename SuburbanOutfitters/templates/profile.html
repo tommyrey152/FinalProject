@@ -7,6 +7,7 @@
 <p>Phone Number: {{ profile.phone_number }}</p>
 -->
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -44,17 +45,7 @@
                         <p><strong>Address:</strong> {{ user.profile.address }}</p>
                         <p><strong>Phone Number:</strong> {{ user.profile.phone_number }}</p>
                         <a href="{% url 'profile_update' %}" class="btn btn-primary">Update Profile</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                <!-- Add more cards for other profile related actions or details -->
-                <div class="card">
-                    <div class="card-body">
-                        <h2>Other Information</h2>
-                        <!-- Placeholder for other information -->
-                        <p>More user-related information can go here.</p>
+                        <a href="{% url 'profile' %}" class="btn btn-primary">Track Order</a> <!-- Add this line -->
                     </div>
                 </div>
             </div>
