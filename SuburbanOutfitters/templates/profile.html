@@ -1,5 +1,66 @@
+
+<!--
 <h1>Welcome, {{ profile.user.username }}</h1>
 <p>Name: {{ profile.name }}</p>
 <p>Email: {{ profile.email }}</p>
 <p>Address: {{ profile.address }}</p>
 <p>Phone Number: {{ profile.phone_number }}</p>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Include Bootstrap CSS from a CDN -->
+    {% load static %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/styles2.css' %}" rel="stylesheet">
+    <style>
+        body.admin-panel {
+            padding-top: 70px;
+        }
+        .admin-panel .card {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .admin-panel .btn {
+            padding: .375rem .75rem;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body class="admin-panel">
+    {% include "nav.html" %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1 class="text-center mb-5">User Profile</h1>
+                <div class="card mb-4">
+                    <div class="card-body">
+                       <!---- <h2>Profile Details</h2>
+                        <p><strong>Username:</strong> {{ profile.user.username }}</p>
+                        <p><strong>Name:</strong> {{ profile.name }}</p>
+                        <p><strong>Email:</strong> {{ profile.email }}</p>
+                        <p><strong>Address:</strong> {{ profile.address }}</p>
+                        <p><strong>Phone Number:</strong> {{ profile.phone_number }}</p>
+                       -->
+                    </div>
+                </div>
+                <!-- Add more cards for other profile related actions or details -->
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Other Information</h2>
+                        <!-- Placeholder for other information -->
+                        <p>More user-related information can go here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
