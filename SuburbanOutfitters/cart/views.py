@@ -67,5 +67,8 @@ def checkout(request):
 
 @login_required
 def checkout_complete(request):
-    print("Redirecting to checkout_complete")
-    return render(request, 'cart/checkout_complete.html')
+    latest_order = Order.objects.latest('id')
+    context = {
+        'order_id': latest_order.id
+    }
+    return render(request, 'cart/checkout_complete.html', context)

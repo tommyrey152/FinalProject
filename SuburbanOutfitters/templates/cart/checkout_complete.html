@@ -6,8 +6,12 @@
 
 {% block content %}
   <div class="container">
-    <h1>Checkout Complete</h1>
-    <p>Thank you for your purchase!</p>
+    <h2>Checkout Complete</h2>
+    {% if order_id %}
+        <p>Thank you for your purchase! Your tracking order number is: {{ order_id }}</p>
+    {% else %}
+        <p>There was an error processing your order. Please refresh the page, and try again.</p>
+    {% endif %}
     <a href="{% url 'home' %}" class="btn btn-primary">Go to Home</a>
   </div>
 {% endblock %}
