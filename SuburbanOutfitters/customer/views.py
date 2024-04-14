@@ -48,8 +48,6 @@ class LoginView(FormView):
                 return redirect('admin_home')
             else:
                 return redirect('home')
-        else:
-            messages.error(self.request, 'Invalid username or password.')
             return redirect('login')
 
 
