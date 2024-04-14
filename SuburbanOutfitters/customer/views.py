@@ -20,6 +20,9 @@ from .models import Product
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import DetailView
+from .models import Profile
 
 
 
@@ -286,3 +289,12 @@ class WomensProductsView(ListView):
 
     def get_queryset(self):
         return Product.objects.filter(gender='W')
+    
+
+class ProfileView(LoginRequiredMixin, DetailView):
+    model = Profile
+    template_name = 'profile.html'
+    context_object_name = 'profile'
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile

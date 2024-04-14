@@ -5,7 +5,7 @@ from .views import (
     CustomerListView, CustomerAdd, CustomerUpdate, CustomerDelete, 
     ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
     LoginView, AdminHomeView, CustomerProductListView, SearchResultsView, MensProductsView, WomensProductsView,
-    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView
+    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView
 )
 
 urlpatterns = [
@@ -25,6 +25,7 @@ urlpatterns = [
     path('customer_add/', views.CustomerAdd.as_view(), name='customer_add'),
     path('customer_update/<int:pk>/', views.CustomerUpdate.as_view(), name='customer_update'),
     path('customer_delete/<int:pk>/', views.CustomerDelete.as_view(), name='customer_delete'),
+    path('profile/', ProfileView.as_view(), name='profile'),
 
     # Product paths 
 
