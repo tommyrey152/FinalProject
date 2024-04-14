@@ -85,6 +85,7 @@ class LoginView(FormView):
         else:
             messages.error(self.request, 'Invalid username or password.')
             return redect('login')
+            #return redirect('login')
 
 
 
