@@ -3,6 +3,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import CartItem, Order, Payment, ShippingAddress
 from customer.models import Product, Customer
 from .forms import CheckoutForm
+from .models import Order
+from django.views.generic.list import ListView
+
+
+class OrderListView(ListView):
+    model = Order
+    context_object_name = 'orders'
+    template_name = 'orders_list.html'
+    queryset = Order.objects.all().order_by('-date_ordered')  # Order by most recent
 
 @login_required
 def cart_detail(request):

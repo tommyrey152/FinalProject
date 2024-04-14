@@ -1,11 +1,13 @@
 from django.urls import path, include
 from . import views
+from cart.views import OrderListView
 from .views import (
     ProductListView, 
     CustomerListView, CustomerAdd, CustomerUpdate, CustomerDelete, 
     ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
     LoginView, AdminHomeView, CustomerProductListView, SearchResultsView, MensProductsView, WomensProductsView,
-    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView
+    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView, 
+
 )
 
 urlpatterns = [
@@ -49,8 +51,9 @@ urlpatterns = [
     #inventory page
    path('inventory/', InventoryListView.as_view(), name='inventory_list'),
    path('product/<int:pk>/update_quantity/', UpdateQuantityView.as_view(), name='update_quantity'),
-
-
+   
+   #order list
+   path('orders/', OrderListView.as_view(), name='orders_list'),
     
     #path('accounts/', include('django.contrib.auth.urls')),
     #path('account_signup/', views.signup_view, name='account_signup'),

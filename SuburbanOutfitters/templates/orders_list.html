@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <h2>
+    <a href="{% url 'admin_home' %}" style="text-decoration: none; color: inherit;">Orders</a>
+    </h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date Ordered</th>
+                    <th>Complete</th>
+                    <th>Transaction ID</th>
+                    <th>Shipping Address</th>
+                    <th>Zipcode</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.customer }}</td>
+                    <td>{{ order.date_ordered|date:"D M d, Y H:i" }}</td>
+                    <td>{{ order.complete }}</td>
+                    <td>{{ order.transaction_id }}</td>
+                    <td>{{ order.shipping_address }}</td>
+                    <td>{{ order.zipcode }}</td>
+                    <td>
+                        <!-- Add buttons or links for additional actions -->
+                        <a href="{% url 'order_details' order.id %}" class="btn btn-sm btn-primary">View</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8">No orders found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
