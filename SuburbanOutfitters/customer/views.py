@@ -428,5 +428,14 @@ class TrackOrderView(View):
 
 class TrackOrderResultView(View):
     def get(self, request):
-        # Add any necessary logic here
         return render(request, 'track_order_result.html')
+
+    def post(self, request):
+        order_id = request.POST.get('order_id')
+        try:
+            order = Order.objects.get(id=order_id)
+            order_status = order.status  # Assuming 'status' is a field in your Order model
+            return render(request, 'track_order_result.html', {'order_status': order_status})
+        except Order.DoesNotExist:
+            error_message = 'Order ID not found.'
+            return render(request, 'track_order_result.html', {'error_message': error_message})
