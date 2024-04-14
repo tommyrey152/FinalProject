@@ -5,7 +5,7 @@ from .views import (
     CustomerListView, CustomerAdd, CustomerUpdate, CustomerDelete, 
     ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
     LoginView, AdminHomeView, CustomerProductListView, SearchResultsView, MensProductsView, WomensProductsView,
-    CustomerCreationForm,
+    CustomerCreationForm,InventoryListView
 )
 
 urlpatterns = [
@@ -44,6 +44,7 @@ urlpatterns = [
     path('mens/', MensProductsView.as_view(), name='mens_products'),
     path('womens/', WomensProductsView.as_view(), name='womens_products'),
 
+    path('inventory/', InventoryListView.as_view(), name='inventory_list'),
     
     
     #path('accounts/', include('django.contrib.auth.urls')),

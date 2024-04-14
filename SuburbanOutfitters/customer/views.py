@@ -18,6 +18,14 @@ from django import forms
 
 
 
+class InventoryListView(ListView):
+    model = Product
+    context_object_name = 'products'
+    template_name = 'inventory_list.html'
+    queryset = Product.objects.all().order_by('productName')
+
+
+
 class CustomerCreationForm(forms.ModelForm):
     class Meta:
         model = Customer
@@ -49,7 +57,7 @@ class LoginView(FormView):
         else:
             messages.error(self.request, 'Invalid username or password.')
             return redect('login')
-ir
+
 
 
 #Admin Views
