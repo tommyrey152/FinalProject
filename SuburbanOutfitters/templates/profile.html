@@ -32,21 +32,23 @@
 </head>
 <body class="admin-panel">
     {% include "nav.html" %}
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <h1 class="text-center mb-5">User Profile</h1>
-                <div class="card mb-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ user.username }} Profile</div>
+    
                     <div class="card-body">
-                       <h2>Profile Details</h2>
-                        <p><strong>Username:</strong> {{ profile.user.username }}</p>
-                        <p><strong>Name:</strong> {{ profile.name }}</p>
-                        <p><strong>Email:</strong> {{ profile.email }}</p>
-                        <p><strong>Address:</strong> {{ profile.address }}</p>
-                        <p><strong>Phone Number:</strong> {{ profile.phone_number }}</p>
-                       
+                        <p><strong>Name:</strong> {{ user.profile.name }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Address:</strong> {{ user.profile.address }}</p>
+                        <p><strong>Phone Number:</strong> {{ user.profile.phone_number }}</p>
+                        <a href="{% url 'profile_update' %}" class="btn btn-primary">Update Profile</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
                 <!-- Add more cards for other profile related actions or details -->
                 <div class="card">
                     <div class="card-body">
@@ -64,3 +66,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

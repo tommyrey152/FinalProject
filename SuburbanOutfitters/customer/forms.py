@@ -1,6 +1,6 @@
 from django import forms
 from customer.models import Product
-from .models import Customer, MarketingCampaign
+from .models import Customer, MarketingCampaign, Profile
 from django.contrib.auth.models import AbstractUser
 
 
@@ -33,3 +33,8 @@ class MarketingCampaignForm(forms.ModelForm):
     class Meta:
         model = MarketingCampaign
         fields = '__all__'   
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['name', 'address', 'phone_number', 'email']

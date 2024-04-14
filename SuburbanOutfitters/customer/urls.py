@@ -27,7 +27,6 @@ urlpatterns = [
     path('customer_add/', views.CustomerAdd.as_view(), name='customer_add'),
     path('customer_update/<int:pk>/', views.CustomerUpdate.as_view(), name='customer_update'),
     path('customer_delete/<int:pk>/', views.CustomerDelete.as_view(), name='customer_delete'),
-    path('profile/', ProfileView.as_view(), name='profile'),
 
     #MarketingCampaign-related paths
     path('marketingCampaign_list/', views.MarketingCampaignListView.as_view(), name="marketingCampaign_list"),
@@ -35,6 +34,13 @@ urlpatterns = [
     path('marketingCampaign_update/<int:pk>/', views.MarketingCampaignUpdate.as_view(), name='marketingCampaign_update'),
     path('marketingCampaign_delete/<int:pk>/', views.MarketingCampaignDelete.as_view(), name='marketingCampaign_delete'),
     path('marketingCampaign_details/<int:marketingCampaign_id>/', views.MarketingCampaignDetails.as_view(), name='marketingCampaign_details'),
+    
+    #Profile Paths
+    path('profile/update/', views.ProfileUpdateView.as_view(), name='profile_update'),
+    path('profile/', ProfileView.as_view(), name='profile'),
+    
+    
+    
     # Product paths 
 
 

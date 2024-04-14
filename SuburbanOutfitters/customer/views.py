@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from .models import Product, Customer, Category, MarketingCampaign,Sale,Cost
 from .forms import (
-    ProductForm, CustomerForm, LoginForm, CustomerCreationForm, MarketingCampaignForm
+    ProductForm, CustomerForm, LoginForm, CustomerCreationForm, MarketingCampaignForm, ProfileUpdateForm
 )
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import FormView
@@ -85,7 +85,7 @@ class LoginView(FormView):
                 return super().form_valid(form)
         else:
             messages.error(self.request, 'Invalid username or password.')
-            return redect('login')
+            return redirect('login')
             #return redirect('login')
 
 
@@ -385,3 +385,18 @@ def monthly_reports(request):
         'net_profit': net_profit,
     }
     return render(request, 'reports.html', context)
+
+
+class ProfileUpdateView(View):
+    def get(self, request):
+        profile = request.user.profile
+        form = ProfileUpdateForm(instance=profile)
+        return render(request, 'profile_update.html', {'form': form})
+
+    def post(self, request):
+        profile = request.user.profile
+        form = ProfileUpdateForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+        return render(request, 'profile_update.html', {'form': form})
