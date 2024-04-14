@@ -5,7 +5,7 @@ from .views import (
     CustomerListView, CustomerAdd, CustomerUpdate, CustomerDelete, 
     ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
     LoginView, AdminHomeView, CustomerProductListView, SearchResultsView, MensProductsView, WomensProductsView,
-    CreateAccount
+    CustomerCreationForm,
 )
 
 urlpatterns = [
@@ -35,7 +35,8 @@ urlpatterns = [
 
     #login path
     path('login/', views.LoginView.as_view(), name='login'),
-    path('create_account/', CreateAccount.as_view(), name='create_account'),
+    path('create_account/', views.CustomerAdd.as_view(), name='create_account'),
+
     
     #search bar
     path('search/', SearchResultsView.as_view(), name='search_results'),

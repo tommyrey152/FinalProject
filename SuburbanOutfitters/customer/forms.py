@@ -19,10 +19,6 @@ class CustomerCreationForm(forms.ModelForm):
         fields = ('username', 'password', 'firstName', 'lastName', 'address')
 
 
-
-        
-
-
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer

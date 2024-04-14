@@ -9,32 +9,30 @@ from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login
 from django.views.generic.list import ListView
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.hashers import make_password
+from django.urls import reverse_lazy
+from django.contrib.auth.hashers import make_password
+from django import forms
 
 
 
-class CreateAccount(View):
-    def get(self, request):
-        form = CustomerCreationForm()
-        return render(request, 'create_account.html', {'form': form})
 
-    def post(self, request):
-        form = CustomerCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.password = make_password(form.cleaned_data['password'])
-            user.save()
-            login(request, user)
-            return redirect('home')
-        else:
-            print(form.errors)   
-            return render(request, 'create_account.html', {'form': form})
+class CustomerCreationForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ('username', 'password', 'firstName', 'lastName', 'address')
 
+    def clean_password(self):
+        return make_password(self.cleaned_data['password'])
+
+class LoginForm(AuthenticationForm):
+    pass
 
 class LoginView(FormView):
     template_name = 'login.html'
     form_class = LoginForm
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         username = form.cleaned_data['username']
@@ -47,10 +45,11 @@ class LoginView(FormView):
             if user.is_superuser:
                 return redirect('admin_home')
             else:
-                return redirect('home')
+                return super().form_valid(form)
         else:
             messages.error(self.request, 'Invalid username or password.')
-            return redirect('login')
+            return redect('login')
+ir
 
 
 #Admin Views
