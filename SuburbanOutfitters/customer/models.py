@@ -88,3 +88,14 @@ class Profile(models.Model):
 User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
     
     
+class MarketingCampaign(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    discountPercent = models.CharField(max_length=255)
+    startDate = models.DateField()
+    endDate = models.DateField()
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+  

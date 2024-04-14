@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from .models import Product, Customer, Category
+from .models import Product, Customer, Category, MarketingCampaign
 from .forms import (
-    ProductForm, CustomerForm, LoginForm, CustomerCreationForm,
+    ProductForm, CustomerForm, LoginForm, CustomerCreationForm, MarketingCampaignForm
 )
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import FormView
@@ -298,3 +298,65 @@ class ProfileView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         return self.request.user.profile
+    
+
+
+class MarketingCampaignListView(View):
+    def get(self, request):
+        marketingCampaigns = MarketingCampaign.objects.all()
+        return render(request, 'marketingCampaign_list.html', {'marketingCampaigns': marketingCampaigns})
+
+# Marketing Add
+class MarketingCampaignAdd(View):
+    def get(self, request):
+        form = MarketingCampaignForm()
+        return render(request, 'marketingCampaign_add.html', {'form': form})
+
+    def post(self, request):
+        form = MarketingCampaignForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('marketingCampaign_list')
+        return render(request, 'MarketingCampaign_add.html', {'form': form})
+
+# Marketing Update
+class MarketingCampaignUpdate(View):
+    def get(self, request, pk):
+        marketingCampaign = get_object_or_404(MarketingCampaign, pk=pk)
+        form = MarketingCampaignForm(instance=marketingCampaign)
+        return render(request, 'marketingCampaign_update.html', {'form': form, 'marketingCampaign': marketingCampaign})
+
+    def post(self, request, pk):
+        marketingCampaign = get_object_or_404(MarketingCampaign, pk=pk)
+        form = MarketingCampaignForm(request.POST, instance=marketingCampaign)
+        if form.is_valid():
+            form.save()
+            return redirect('marketingCampaign_list')
+        return render(request, 'marketingCampaign_update.html', {'form': form, 'marketingCampaign': marketingCampaign})
+
+# Marketing Delete
+class MarketingCampaignDelete(View):
+    def get(self, request, pk):
+        marketingCampaign = get_object_or_404(MarketingCampaign, pk=pk)
+        return render(request, 'marketingCampaign_delete.html', {'marketingCampaign': marketingCampaign})
+
+    def post(self, request, pk):
+        marketingCampaign = get_object_or_404(MarketingCampaign, pk=pk)
+        marketingCampaign.delete()
+        return redirect('marketingCampaign_list')
+    
+# Marketing Details
+class MarketingCampaignDetails(View):
+    def get(self,request,marketingCampaign_id=None):
+        if marketingCampaign_id:
+            marketingCampaign = MarketingCampaign.objects.get(pk=marketingCampaign_id)
+        else:
+            marketingCampaign = MarketingCampaign()
+        form = MarketingCampaignForm(instance=marketingCampaign)
+        for field in form.fields:
+            form.fields[field].widget.attrs['disabled'] = True
+
+        return render(request = request,template_name = 'marketingCampaign_details.html',context = {'marketingCampaign':marketingCampaign,'form':form})
+    
+    def post(self,request,marketingCampaign_id=None):
+        return redirect(reverse("marketingCampaign_list"))

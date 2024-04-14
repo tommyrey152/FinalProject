@@ -1,0 +1,19 @@
+{% load static %}  <!-- Load static to use in linking CSS -->
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Link to Bootstrap CDN for quick styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Link to your custom stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h2>Are you sure you want to delete this marketing campaign?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirm">
+    </form>
+    <a href="{% url 'marketingCampaign_list' %}">Cancel</a>
+</body>
+</html>

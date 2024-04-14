@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- ... other head elements ... -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include "nav.html" %}  
+
+    <h2>Marketing Campaigns</h2>
+
+    <a href="{% url 'marketingCampaign_add' %}" class="btn btn-outline-success btn-sm mb-3">Add Marketing Campaign</a>
+    <ul class="list-unstyled">
+        {% for marketingCampaign in marketingCampaigns %}
+        <li class="mb-2">
+            {{ marketingCampaign.name }}
+            
+            <!-- Update Button -->
+            <a href="{% url 'marketingCampaign_update' marketingCampaign.pk %}" class="btn btn-outline-secondary btn-sm">Update</a>
+            <!-- Delete Button -->
+            <a href="{% url 'marketingCampaign_delete' marketingCampaign.pk %}" class="btn btn-outline-danger btn-sm">Delete</a>
+
+            <a href="{% url 'marketingCampaign_details' marketingCampaign.pk %}" class="btn btn-outline-secondary btn-sm">Details</a>
+
+        </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

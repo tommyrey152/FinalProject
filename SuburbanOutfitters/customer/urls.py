@@ -29,6 +29,12 @@ urlpatterns = [
     path('customer_delete/<int:pk>/', views.CustomerDelete.as_view(), name='customer_delete'),
     path('profile/', ProfileView.as_view(), name='profile'),
 
+    #MarketingCampaign-related paths
+    path('marketingCampaign_list/', views.MarketingCampaignListView.as_view(), name="marketingCampaign_list"),
+    path('marketingCampaign_add/', views.MarketingCampaignAdd.as_view(), name='marketingCampaign_add'),
+    path('marketingCampaign_update/<int:pk>/', views.MarketingCampaignUpdate.as_view(), name='marketingCampaign_update'),
+    path('marketingCampaign_delete/<int:pk>/', views.MarketingCampaignDelete.as_view(), name='marketingCampaign_delete'),
+    path('marketingCampaign_details/<int:marketingCampaign_id>/', views.MarketingCampaignDetails.as_view(), name='marketingCampaign_details'),
     # Product paths 
 
 
