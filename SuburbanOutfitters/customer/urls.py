@@ -6,7 +6,7 @@ from .views import (
     CustomerListView, CustomerAdd, CustomerUpdate, CustomerDelete, 
     ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
     LoginView, AdminHomeView, CustomerProductListView, SearchResultsView, MensProductsView, WomensProductsView,
-    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView, monthly_reports
+    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView, ProfileUpdateView, monthly_reports
 
 )
 
@@ -36,7 +36,7 @@ urlpatterns = [
     path('marketingCampaign_details/<int:marketingCampaign_id>/', views.MarketingCampaignDetails.as_view(), name='marketingCampaign_details'),
     
     #Profile Paths
-    path('profile/update/', views.ProfileUpdateView.as_view(), name='profile_update'),
+    path('profile/update/', ProfileUpdateView.as_view(), name='profile_update'),
     path('profile/', ProfileView.as_view(), name='profile'),
     
     
