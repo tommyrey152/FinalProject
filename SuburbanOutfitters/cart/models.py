@@ -32,14 +32,15 @@ class Payment(models.Model):
         return f"Payment: {self.card_number}, {self.expiration_date}, {self.cvv}"
 
 class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False)
     transaction_id = models.CharField(max_length=100, null=True)
     shipping_address = models.ForeignKey(ShippingAddress, on_delete=models.CASCADE, null=True)
     zipcode = models.CharField(max_length=100, null=True)
     payment = models.ForeignKey('cart.Payment', on_delete=models.SET_NULL, blank=True, null=True)
-    date_ordered = models.DateTimeField(default=timezone.now)
-
     def __str__(self):
         return f"Order {self.id}"
+    def get_total_price(self):
+        total = sum(item.product.price * item.quantity for item in self.items.all())  # Use 'items' instead of 'cartitem_set'
+        return total

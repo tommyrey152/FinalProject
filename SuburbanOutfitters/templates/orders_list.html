@@ -1,11 +1,10 @@
+
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
 <div class="container mt-5">
-
     <h2>
-    <a href="{% url 'admin_home' %}" style="text-decoration: none; color: inherit;">Orders</a>
+        <a href="{% url 'admin_home' %}" style="text-decoration: none; color: inherit;">Orders</a>
     </h2>
     <div class="table-responsive">
         <table class="table">
@@ -18,6 +17,7 @@
                     <th>Transaction ID</th>
                     <th>Shipping Address</th>
                     <th>Zipcode</th>
+                    <th>Total Price</th>  <!-- New column for total price -->
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -31,14 +31,14 @@
                     <td>{{ order.transaction_id }}</td>
                     <td>{{ order.shipping_address }}</td>
                     <td>{{ order.zipcode }}</td>
+                    <td>${{ order.get_total_price }}</td>  <!-- Display the total price -->
                     <td>
-                        <!-- Add buttons or links for additional actions -->
-                        <a href="{% url 'order_details' order.id %}" class="btn btn-sm btn-primary">View</a>
+                        <a href="{% url 'cart:order_details' order.id %}" class="btn btn-sm btn-primary">View</a>
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="8">No orders found.</td>
+                    <td colspan="9">No orders found.</td>
                 </tr>
                 {% endfor %}
             </tbody>

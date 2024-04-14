@@ -1,11 +1,21 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import CartItem, Order, Payment, ShippingAddress
+from django.views.generic import ListView, DetailView
+from .models import (
+    CartItem,
+    Order,
+    Payment,
+    ShippingAddress,
+)
 from customer.models import Product, Customer
 from .forms import CheckoutForm
-from .models import Order
-from django.views.generic.list import ListView
+from .models import Cart
 
+class OrderDetailsView(DetailView):
+    model = Order
+    template_name = 'order_details.html'
+    context_object_name = 'order'
+    pk_url_kwarg = 'order_id'
 
 class OrderListView(ListView):
     model = Order
