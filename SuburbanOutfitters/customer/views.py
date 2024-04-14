@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from .models import Product, Customer, Category, MarketingCampaign
+from .models import Product, Customer, Category, MarketingCampaign,Sale,Cost
 from .forms import (
     ProductForm, CustomerForm, LoginForm, CustomerCreationForm, MarketingCampaignForm
 )
@@ -24,7 +24,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView
 from .models import Profile
 
-
+from django.db.models import Sum
+from datetime import datetime
 
 
 
@@ -361,3 +362,26 @@ class MarketingCampaignDetails(View):
     
     def post(self,request,marketingCampaign_id=None):
         return redirect(reverse("marketingCampaign_list"))
+
+#monthly reporting
+def monthly_reports(request):
+    # Get current month and year
+    now = datetime.now()
+    current_month = now.month
+    current_year = now.year
+
+    # Calculate gross sales for the current month
+    gross_sales = Sale.objects.filter(date__month=current_month, date__year=current_year).aggregate(Sum('amount'))['amount__sum'] or 0
+
+    # Calculate total costs for the current month
+    total_costs = Cost.objects.filter(date__month=current_month, date__year=current_year).aggregate(Sum('amount'))['amount__sum'] or 0
+
+    # Calculate net profit for the current month
+    net_profit = gross_sales - total_costs
+
+    context = {
+        'gross_sales': gross_sales,
+        'total_costs': total_costs,
+        'net_profit': net_profit,
+    }
+    return render(request, 'reports.html', context)

@@ -6,7 +6,7 @@ from .views import (
     CustomerListView, CustomerAdd, CustomerUpdate, CustomerDelete, 
     ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
     LoginView, AdminHomeView, CustomerProductListView, SearchResultsView, MensProductsView, WomensProductsView,
-    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView, 
+    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView, monthly_reports
 
 )
 
@@ -63,7 +63,9 @@ urlpatterns = [
     
     #path('accounts/', include('django.contrib.auth.urls')),
     #path('account_signup/', views.signup_view, name='account_signup'),
-    
+
+    path('reports/', monthly_reports, name='monthly_reports'),
+
   
 ]
 

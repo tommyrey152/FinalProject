@@ -99,3 +99,12 @@ class MarketingCampaign(models.Model):
     def __str__(self):
         return self.name
   
+#sales Report 
+class Sale(models.Model):
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateField(auto_now_add=True)
+
+class Cost(models.Model):
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateField(auto_now_add=True)
+    description = models.TextField()
