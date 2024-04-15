@@ -55,7 +55,7 @@ class CostReportUpdate(UpdateView):
 
 class CostReportDelete(DeleteView):
     model = CostReport
-    template_name = 'cost_report_confirm_delete.html'
+    template_name = 'cost_report_delete.html'
     success_url = reverse_lazy('cost_report_list')
     
 class CostReportDetail(DetailView):
