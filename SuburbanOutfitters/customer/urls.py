@@ -7,7 +7,7 @@ from .views import (
     ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
     LoginView, AdminHomeView, CustomerProductListView, SearchResultsView, MensProductsView, WomensProductsView,
     CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView, ProfileUpdateView, TrackOrderView, TrackOrderResultView, monthly_reports,
-    CostReportList, CostReportCreate, CostReportUpdate, CostReportDelete
+    CostReportList, CostReportCreate, CostReportUpdate, CostReportDelete, CostReportDetail
 
 )
 
@@ -82,7 +82,7 @@ urlpatterns = [
     #cost Reports
     path('cost_reports/', CostReportList.as_view(), name='cost_report_list'),
     path('cost_reports/add/', CostReportCreate.as_view(), name='cost_report_add'),
-    #path('cost_reports/<int:pk>/', CostReportDetail.as_view(), name='cost_report_detail'),
+    path('cost_reports/<int:pk>/', CostReportDetail.as_view(), name='cost_report_detail'),
     path('cost_reports/<int:pk>/update/', CostReportUpdate.as_view(), name='cost_report_update'),
     path('cost_reports/<int:pk>/delete/', CostReportDelete.as_view(), name='cost_report_delete'),
 ]

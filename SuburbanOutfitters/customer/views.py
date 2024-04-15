@@ -57,6 +57,11 @@ class CostReportDelete(DeleteView):
     model = CostReport
     template_name = 'cost_report_confirm_delete.html'
     success_url = reverse_lazy('cost_report_list')
+    
+class CostReportDetail(DetailView):
+    model = CostReport
+    template_name = 'your_template_name.html'  # Specify your template name
+    context_object_name = 'cost_report'
 
 
 class InventoryListView(ListView):
