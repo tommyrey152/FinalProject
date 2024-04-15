@@ -17,7 +17,7 @@
             {% for cost_report in cost_reports %}
             <tr>
                 <td>{{ cost_report.name }}</td>
-                <td>${{ cost_report.cost }}</td>
+                <td class="cost-value">${{ cost_report.cost }}</td>
                 <td>{{ cost_report.description }}</td>
                 <td>
                     <a href="{% url 'cost_report_detail' cost_report.id %}" class="btn btn-info">View</a>
@@ -31,12 +31,12 @@
             </tr>
             {% endfor %}
         </tbody>
-        <!-- Display total cost in table footer -->
         <tfoot>
             <tr>
-                <td><strong>Total Cost</strong></td>
-                <td>${{ total_cost }}</td>
-                <td colspan="2"></td>
+                <td>Total Cost:</td>
+                <td id="totalCost" class="cost-value">$3732.00</td>
+                <td></td> <!-- Empty cell for the "Description" column -->
+                <td></td> <!-- Empty cell for the "Actions" column -->
             </tr>
         </tfoot>
     </table>
