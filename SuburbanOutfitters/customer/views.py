@@ -28,6 +28,8 @@ from datetime import timedelta
 from cart.models import Order
 from django.http import JsonResponse, HttpResponseRedirect
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
+from .utils import create_user
 
 class InventoryListView(ListView):
     model = Product
@@ -203,6 +205,12 @@ class ProductAdd(View):
 
     
     
+
+
+def create_customer(sender, instance, created, **kwargs):
+    if created:
+        if not hasattr(instance, 'customer'):
+            Customer.objects.create(user=instance)
     
     
     
@@ -212,6 +220,7 @@ class CustomerListView(View):
         customers = Customer.objects.all()
         return render(request, 'customer_list.html', {'customers': customers})
 
+
 # Customer Add
 class CustomerAdd(View):
     def get(self, request):
@@ -219,11 +228,22 @@ class CustomerAdd(View):
         return render(request, 'customer_add.html', {'form': form})
 
     def post(self, request):
-        form = CustomerForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('customer_list')
-        return render(request, 'customer_add.html', {'form': form})
+        customer_form = CustomerForm(request.POST)
+        if customer_form.is_valid():
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            email = request.POST.get('email')
+            new_user = create_user(username, password, email)
+            if new_user:
+                customer = customer_form.save(commit=False)
+                customer.user = new_user
+                customer.save()
+
+                return redirect('customer_list')
+            else:
+                pass
+        return render(request, 'customer_add.html', {'form': customer_form})
+
 
 # Customer Update
 class CustomerUpdate(View):

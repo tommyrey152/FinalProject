@@ -38,11 +38,11 @@ class Customer(models.Model):
     lastName = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
     username = models.CharField(max_length=100)
-    password = models.CharField(max_length=128, null=True)
-    last_login = models.DateTimeField(auto_now=True)
+    password = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.firstName
+    def save(self, *args, **kwargs):
+        self.password = make_password(self.password)
+        super().save(*args, **kwargs)
 
 def mens_products(request):
     # Your logic here

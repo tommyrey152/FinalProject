@@ -12,11 +12,9 @@ class ProductForm(forms.ModelForm):
 
 
 class CustomerCreationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
-
     class Meta:
         model = Customer
-        fields = ('username', 'password', 'firstName', 'lastName', 'address')
+        fields = ('firstName', 'lastName', 'address')
 
 
 class CustomerForm(forms.ModelForm):
