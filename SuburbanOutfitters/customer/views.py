@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from .models import Product, Customer, Category, MarketingCampaign,Sale,Cost
+from .models import Product, Customer, Category, MarketingCampaign,Sale, Cost, CostReport
 from .forms import (
     ProductForm, CustomerForm, LoginForm, CustomerCreationForm, MarketingCampaignForm, ProfileUpdateForm
 )
@@ -30,6 +30,34 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from .utils import create_user
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from .models import CostReport
+from .forms import CostReportForm
+from django.urls import reverse_lazy
+
+class CostReportList(ListView):
+    model = CostReport
+    template_name = 'cost_report_list.html'
+    context_object_name = 'cost_reports'
+
+class CostReportCreate(CreateView):
+    model = CostReport
+    form_class = CostReportForm
+    template_name = 'cost_report_form.html'
+    success_url = reverse_lazy('cost_report_list')
+
+class CostReportUpdate(UpdateView):
+    model = CostReport
+    form_class = CostReportForm
+    template_name = 'cost_report_form.html'
+    success_url = reverse_lazy('cost_report_list')
+
+class CostReportDelete(DeleteView):
+    model = CostReport
+    template_name = 'cost_report_confirm_delete.html'
+    success_url = reverse_lazy('cost_report_list')
+
 
 class InventoryListView(ListView):
     model = Product

@@ -1,0 +1,27 @@
+<!-- cost_report_list.html -->
+{% extends "base_generic.html" %}
+{% block content %}
+<h2>Cost Reports</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Cost</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+  {% for cost_report in cost_reports %}
+  <tr>
+    <td>{{ cost_report.name }}</td>
+    <td>${{ cost_report.cost }}</td>
+    <td>{{ cost_report.description }}</td>
+    <td>
+      <a href="{% url 'cost_report_update' cost_report.pk %}">Edit</a>
+      <a href="{% url 'cost_report_delete' cost_report.pk %}">Delete</a>
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="4">No cost reports found.</td></tr>
+  {% endfor %}
+</table>
+<a href="{% url 'cost_report_create' %}">Add New Cost Report</a>
+{% endblock %}

@@ -2,6 +2,7 @@ from django import forms
 from customer.models import Product
 from .models import Customer, MarketingCampaign, Profile
 from django.contrib.auth.models import AbstractUser
+from .models import CostReport
 
 
 
@@ -36,3 +37,11 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['name', 'address', 'phone_number', 'email']
+
+
+
+
+class CostReportForm(forms.ModelForm):
+    class Meta:
+        model = CostReport
+        fields = ['name', 'cost', 'description']

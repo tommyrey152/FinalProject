@@ -6,7 +6,8 @@ from .views import (
     CustomerListView, CustomerAdd, CustomerUpdate, CustomerDelete, 
     ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
     LoginView, AdminHomeView, CustomerProductListView, SearchResultsView, MensProductsView, WomensProductsView,
-    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView, ProfileUpdateView, TrackOrderView, TrackOrderResultView, monthly_reports
+    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView, ProfileUpdateView, TrackOrderView, TrackOrderResultView, monthly_reports,
+    CostReportList, CostReportCreate, CostReportUpdate, CostReportDelete
 
 )
 
@@ -76,6 +77,13 @@ urlpatterns = [
 
     path('reports/', monthly_reports, name='monthly_reports'),
 
+
+
+    #cost Reports
+    path('cost_reports/', CostReportList.as_view(), name='cost_report_list'),
+    path('cost_reports/add/', CostReportCreate.as_view(), name='cost_report_create'),
+    path('cost_reports/edit/<int:pk>/', CostReportUpdate.as_view(), name='cost_report_update'),
+    path('cost_reports/delete/<int:pk>/', CostReportDelete.as_view(), name='cost_report_delete'),
   
 ]
 
