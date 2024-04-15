@@ -1,40 +1,44 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from .models import Product, Customer, Category, MarketingCampaign,Sale, Cost, CostReport
+from .models import (
+    Product, Customer, Category, MarketingCampaign, Sale, Cost, CostReport, Profile
+)
 from .forms import (
-    ProductForm, CustomerForm, LoginForm, CustomerCreationForm, MarketingCampaignForm, ProfileUpdateForm
+    ProductForm, CustomerForm, LoginForm, CustomerCreationForm, MarketingCampaignForm,
+    ProfileUpdateForm, CostReportForm
 )
 from django.urls import reverse, reverse_lazy
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 from django.contrib.auth import authenticate, login
 from django.views.generic.list import ListView
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.hashers import make_password
 from django import forms
-from django.http import JsonResponse
-from django.views import View
-from .models import Product
+from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView
-from .models import Profile
 from django.utils import timezone
 from django.db.models import Sum
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 from cart.models import Order
-from django.http import JsonResponse, HttpResponseRedirect
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from .utils import create_user
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from .models import CostReport
-from .forms import CostReportForm
-from django.urls import reverse_lazy
+
+
+class CostReportListView(ListView):
+    model = CostReport
+    template_name = 'cost_report_list.html'
+    context_object_name = 'cost_reports'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_cost'] = self.model.objects.aggregate(total=Sum('cost'))['total']
+        return context
+
 
 class CostReportList(ListView):
     model = CostReport
