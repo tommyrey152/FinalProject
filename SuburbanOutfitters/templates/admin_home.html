@@ -24,6 +24,14 @@
         .admin-panel .btn {
             padding: .375rem .75rem; /* Adjust padding */
             font-size: 1rem; /* Adjust font size */
+            background-color: #007bff; /* Blue color for buttons */
+            border-color: #007bff; /* Blue border color for buttons */
+        }
+        
+        /* Override button color for secondary buttons */
+        .admin-panel .btn-secondary {
+            background-color: #6c757d; /* Gray color for secondary buttons */
+            border-color: #6c757d; /* Gray border color for secondary buttons */
         }
     </style>
 </head>
@@ -38,7 +46,7 @@
                     <div class="card-body">
                         <h2>Customers</h2>
                         <a href="{% url 'customer_add' %}" class="btn btn-primary mr-2">Add Customer</a>
-                        <a href="{% url 'customer_list' %}" class="btn btn-secondary">View Customers</a>
+                        <a href="{% url 'customer_list' %}" class="btn btn-primary">View Customers</a>
                     </div>
                 </div>
 
@@ -46,7 +54,7 @@
                     <div class="card-body">
                         <h2>Products</h2>
                         <a href="{% url 'product_add' %}" class="btn btn-primary mr-2">Add Product</a>
-                        <a href="{% url 'product_list' %}" class="btn btn-secondary">View Products</a>
+                        <a href="{% url 'product_list' %}" class="btn btn-primary">View Products</a>
                     </div>
                 </div>
                 
@@ -54,7 +62,7 @@
                     <div class="card-body">
                         <h2>Marketing Campaigns</h2>
                         <a href="{% url 'marketingCampaign_add' %}" class="btn btn-primary mr-2">Add Marketing Campaign</a>
-                        <a href="{% url 'marketingCampaign_list' %}" class="btn btn-secondary">View Marketing Campaigns</a>
+                        <a href="{% url 'marketingCampaign_list' %}" class="btn btn-primary">View Marketing Campaigns</a>
                     </div>
                 </div>
 
@@ -72,7 +80,7 @@
                         <h2>Sales</h2>
                         <a href="{% url 'monthly_reports' %}" class="btn btn-primary mr-2">Monthly Sales & Gross Report</a>
 
-                        <a href="{% url 'cost_report_list' %}" class="btn btn-secondary">Cost Reports</a>
+                        <a href="{% url 'cost_report_list' %}" class="btn btn-primary">Cost Reports</a>
                     </div>
                 </div>
             </div>
