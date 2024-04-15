@@ -39,7 +39,6 @@ class Customer(models.Model):
     address = models.CharField(max_length=200)
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
-    email = models.EmailField(max_length=200)
 
     def save(self, *args, **kwargs):
         self.password = make_password(self.password)

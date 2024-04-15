@@ -45,3 +45,9 @@ class CostReportForm(forms.ModelForm):
     class Meta:
         model = CostReport
         fields = ['name', 'cost', 'description']
+
+
+class ReturnItemForm(forms.Form):
+    order_number = forms.CharField(label='Order Number', max_length=100)
+    reasoning = forms.CharField(label='Reason for Return', widget=forms.Textarea)
+    quantity = forms.IntegerField(label='Quantity to Return', min_value=1)

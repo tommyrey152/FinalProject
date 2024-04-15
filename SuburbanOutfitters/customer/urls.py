@@ -6,7 +6,7 @@ from .views import (
     CustomerListView, CustomerAdd, CustomerUpdate, CustomerDelete, 
     ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
     LoginView, AdminHomeView, CustomerProductListView, SearchResultsView, MensProductsView, WomensProductsView,
-    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView, ProfileUpdateView, TrackOrderView, TrackOrderResultView, monthly_reports,
+    CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView, ProfileUpdateView, TrackOrderView, TrackOrderResultView, ReturnItemView, ReturnItemConfirmationView, monthly_reports,
     CostReportList, CostReportCreate, CostReportUpdate, CostReportDelete, CostReportDetail, logout_view
 
 )
@@ -41,6 +41,8 @@ urlpatterns = [
     path('profile/', ProfileView.as_view(), name='profile'),
     path('track_order/', TrackOrderView.as_view(), name='track_order'),
     path('track_order_result/', TrackOrderResultView.as_view(), name='track_order_result'),
+    path('return_item/', ReturnItemView.as_view(), name='return_item'),
+    path('return_item_confirmation/', ReturnItemConfirmationView.as_view(), name='return_item_confirmation'),
 
     
     

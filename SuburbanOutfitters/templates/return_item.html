@@ -1,18 +1,9 @@
-
-<!--
-<h1>Welcome, {{ profile.user.username }}</h1>
-<p>Name: {{ profile.name }}</p>
-<p>Email: {{ profile.email }}</p>
-<p>Address: {{ profile.address }}</p>
-<p>Phone Number: {{ profile.phone_number }}</p>
--->
-<!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>Return Item</title>
     <!-- Include Bootstrap CSS from a CDN -->
     {% load static %}
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -37,16 +28,20 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ user.username }} Profile</div>
-    
+                    <div class="card-header">Return Item</div>
                     <div class="card-body">
-                        <p><strong>Name:</strong> {{ user.profile.name }}</p>
-                        <p><strong>Email:</strong> {{ user.email }}</p>
-                        <p><strong>Address:</strong> {{ user.profile.address }}</p>
-                        <p><strong>Phone Number:</strong> {{ user.profile.phone_number }}</p>
-                        <a href="{% url 'profile_update' %}" class="btn btn-primary">Update Profile</a>
-                        <a href="{% url 'track_order_result' %}" class="btn btn-primary">Track Order</a>
-                        <a href="{% url 'return_item' %}" class="btn btn-primary">Return an Item</a>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="item_name">Item Name:</label>
+                                <input type="text" class="form-control" id="item_name" name="item_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="reason">Reason for Return:</label>
+                                <textarea class="form-control" id="reason" name="reason" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -58,4 +53,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-

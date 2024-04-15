@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from .models import Product, Customer, Category, MarketingCampaign,Sale, Cost, CostReport
 from .forms import (
-    ProductForm, CustomerForm, LoginForm, CustomerCreationForm, MarketingCampaignForm, ProfileUpdateForm
+    ProductForm, CustomerForm, LoginForm, CustomerCreationForm, MarketingCampaignForm, ProfileUpdateForm, ReturnItemForm
 )
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import FormView
@@ -35,6 +35,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import CostReport
 from .forms import CostReportForm
 from django.urls import reverse_lazy
+from django.http import HttpResponse
 
 class CostReportList(ListView):
     model = CostReport
@@ -495,3 +496,23 @@ class TrackOrderResultView(View):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+
+
+class ReturnItemView(View):
+    template_name = 'return_item.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        order_number = request.POST.get('order_number')
+        reasoning = request.POST.get('reasoning')
+        quantity = request.POST.get('quantity')
+        # Process the data (e.g., update the database with the returned item quantity)
+        # Redirect to the confirmation page
+        return HttpResponseRedirect(reverse('return_item_confirmation'))
+
+class ReturnItemConfirmationView(View):
+    def get(self, request):
+        return render(request, 'return_item_confirmation.html')
