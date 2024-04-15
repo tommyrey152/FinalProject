@@ -15,7 +15,7 @@ class ProductForm(forms.ModelForm):
 class CustomerCreationForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ('firstName', 'lastName', 'address')
+        fields = '__all__'
 
 
 class CustomerForm(forms.ModelForm):
