@@ -60,7 +60,7 @@ class CostReportDelete(DeleteView):
     
 class CostReportDetail(DetailView):
     model = CostReport
-    template_name = 'your_template_name.html'  # Specify your template name
+    template_name = 'cost_report_detail.html'  # Specify your template name
     context_object_name = 'cost_report'
 
 
