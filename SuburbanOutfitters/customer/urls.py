@@ -81,10 +81,10 @@ urlpatterns = [
 
     #cost Reports
     path('cost_reports/', CostReportList.as_view(), name='cost_report_list'),
-    path('cost_reports/add/', CostReportCreate.as_view(), name='cost_report_create'),
-    path('cost_reports/edit/<int:pk>/', CostReportUpdate.as_view(), name='cost_report_update'),
-    path('cost_reports/delete/<int:pk>/', CostReportDelete.as_view(), name='cost_report_delete'),
-  
+    path('cost_reports/add/', CostReportCreate.as_view(), name='cost_report_add'),
+    #path('cost_reports/<int:pk>/', CostReportDetail.as_view(), name='cost_report_detail'),
+    path('cost_reports/<int:pk>/update/', CostReportUpdate.as_view(), name='cost_report_update'),
+    path('cost_reports/<int:pk>/delete/', CostReportDelete.as_view(), name='cost_report_delete'),
 ]
 
 # Add the following line at the end of your urlpatterns
