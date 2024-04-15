@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Cost Report Detail</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Name:</dt>
+        <dd class="col-sm-9">{{ cost_report.name }}</dd>
+
+        <dt class="col-sm-3">Cost:</dt>
+        <dd class="col-sm-9">${{ cost_report.cost }}</dd>
+
+        <dt class="col-sm-3">Description:</dt>
+        <dd class="col-sm-9">{{ cost_report.description }}</dd>
+    </dl>
+    <a href="{% url 'cost_report_list' %}" class="btn btn-secondary">Back to List</a>
+</div>
+{% endblock %}
