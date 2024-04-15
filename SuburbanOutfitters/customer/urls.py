@@ -88,6 +88,8 @@ urlpatterns = [
     path('cost_reports/<int:pk>/', CostReportDetail.as_view(), name='cost_report_detail'),
     path('cost_reports/<int:pk>/update/', CostReportUpdate.as_view(), name='cost_report_update'),
     path('cost_reports/<int:pk>/delete/', CostReportDelete.as_view(), name='cost_report_delete'),
+    
+     
 ]
 
 # Add the following line at the end of your urlpatterns

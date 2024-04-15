@@ -37,6 +37,7 @@ from .forms import CostReportForm
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 
+
 class CostReportList(ListView):
     model = CostReport
     template_name = 'cost_report_list.html'
