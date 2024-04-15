@@ -475,7 +475,7 @@ class TrackOrderView(View):
     
 
 class TrackOrderResultView(View):
-    template_name = 'tracking_result.html'
+    template_name = 'track_order_result.html'
 
     def get(self, request):
         return render(request, self.template_name)
