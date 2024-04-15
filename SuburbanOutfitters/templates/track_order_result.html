@@ -30,22 +30,11 @@
                 <div class="card">
                     <div class="card-header">Track Order</div>
                     <div class="card-body">
-                        <form method="post">
-                            {% csrf_token %}
+                        <form id="track-order-form" method="get" action="/customers/track_order_result/">
                             <div class="form-group">
                                 <label for="order_id">Order ID:</label>
                                 <input type="text" class="form-control" id="order_id" name="order_id">
                             </div>
                             <button type="submit" class="btn btn-primary">Track Order</button>
                         </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Optional Bootstrap JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+               
