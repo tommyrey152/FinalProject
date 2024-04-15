@@ -1,45 +1,40 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from .models import (
-    Product, Customer, Category, MarketingCampaign, Sale, Cost, CostReport, Profile
-)
+from .models import Product, Customer, Category, MarketingCampaign,Sale, Cost, CostReport
 from .forms import (
-    ProductForm, CustomerForm, LoginForm, CustomerCreationForm, MarketingCampaignForm,
-    ProfileUpdateForm, CostReportForm
+    ProductForm, CustomerForm, LoginForm, CustomerCreationForm, MarketingCampaignForm, ProfileUpdateForm
 )
 from django.urls import reverse, reverse_lazy
-from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
-from django.contrib.auth import authenticate, login
+from django.views.generic.edit import FormView
+from django.contrib.auth import authenticate, login, logout
 from django.views.generic.list import ListView
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.hashers import make_password
 from django import forms
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse
+from django.views import View
+from .models import Product
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView
+from .models import Profile
 from django.utils import timezone
 from django.db.models import Sum
-from datetime import datetime, timedelta
+from datetime import datetime
+from datetime import timedelta
 from cart.models import Order
+from django.http import JsonResponse, HttpResponseRedirect
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from .utils import create_user
-
-
-class CostReportListView(ListView):
-    model = CostReport
-    template_name = 'cost_report_list.html'
-    context_object_name = 'cost_reports'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Calculate the total cost
-        total_cost = CostReport.objects.aggregate(Sum('cost'))['cost__sum']
-        context['total_cost'] = total_cost if total_cost is not None else 0
-        return context
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from .models import CostReport
+from .forms import CostReportForm
+from django.urls import reverse_lazy
 
 class CostReportList(ListView):
     model = CostReport
@@ -60,7 +55,7 @@ class CostReportUpdate(UpdateView):
 
 class CostReportDelete(DeleteView):
     model = CostReport
-    template_name = 'cost_report_delete.html'
+    template_name = 'cost_report_confirm_delete.html'
     success_url = reverse_lazy('cost_report_list')
     
 class CostReportDetail(DetailView):
@@ -494,3 +489,9 @@ class TrackOrderResultView(View):
         except Order.DoesNotExist:
             status = 'Unknown'
             return render(request, 'tracking_result.html', {'status': status})
+
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')

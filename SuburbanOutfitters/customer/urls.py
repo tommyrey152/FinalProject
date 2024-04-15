@@ -7,7 +7,7 @@ from .views import (
     ProductAdd, ProductDetails, ProductUpdate, ProductDelete,
     LoginView, AdminHomeView, CustomerProductListView, SearchResultsView, MensProductsView, WomensProductsView,
     CustomerCreationForm,InventoryListView, InventoryListView,UpdateQuantityView, ProfileView, ProfileUpdateView, TrackOrderView, TrackOrderResultView, monthly_reports,
-    CostReportList, CostReportCreate, CostReportUpdate, CostReportDelete, CostReportDetail, CostReportListView
+    CostReportList, CostReportCreate, CostReportUpdate, CostReportDelete, CostReportDetail, logout_view
 
 )
 
@@ -56,6 +56,7 @@ urlpatterns = [
     #login path
     path('login/', views.LoginView.as_view(), name='login'),
     path('create_account/', views.CustomerAdd.as_view(), name='create_account'),
+    path('logout/', logout_view, name='logout'),
 
     
     #search bar
@@ -85,7 +86,6 @@ urlpatterns = [
     path('cost_reports/<int:pk>/', CostReportDetail.as_view(), name='cost_report_detail'),
     path('cost_reports/<int:pk>/update/', CostReportUpdate.as_view(), name='cost_report_update'),
     path('cost_reports/<int:pk>/delete/', CostReportDelete.as_view(), name='cost_report_delete'),
-    path('cost_reports/', CostReportListView.as_view(), name='cost_report_list'),
 ]
 
 # Add the following line at the end of your urlpatterns
