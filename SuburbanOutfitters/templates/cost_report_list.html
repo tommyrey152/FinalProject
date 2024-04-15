@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <h2>Cost Reports</h2>
     <a href="{% url 'cost_report_add' %}" class="btn btn-primary mb-3">Add New Cost Report</a>
-    <table class="table">
+    <table class="table" id="costTable">
         <thead>
             <tr>
                 <th>Name</th>
@@ -34,11 +34,30 @@
         <tfoot>
             <tr>
                 <td>Total Cost:</td>
-                <td id="totalCost" class="cost-value">$3732.00</td>
+                <td id="totalCost" class="cost-value"></td>
                 <td></td> <!-- Empty cell for the "Description" column -->
                 <td></td> <!-- Empty cell for the "Actions" column -->
             </tr>
         </tfoot>
     </table>
 </div>
+
+<script>
+// Function to calculate and update the total cost
+function calculateTotal() {
+    var total = 0;
+    var costs = document.querySelectorAll('.cost-value');
+    costs.forEach(function(cost) {
+        var value = parseFloat(cost.textContent.replace(/\$/g, '')); // Remove dollar sign and parse to float
+        if (!isNaN(value)) {
+            total += value;
+        }
+    });
+    document.getElementById('totalCost').textContent = '$' + total.toFixed(2);
+}
+
+// Calculate total when the page loads
+window.onload = calculateTotal;
+</script>
+
 {% endblock %}
