@@ -36,9 +36,10 @@ class CostReportListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['total_cost'] = self.model.objects.aggregate(total=Sum('cost'))['total']
+        # Calculate the total cost
+        total_cost = CostReport.objects.aggregate(Sum('cost'))['cost__sum']
+        context['total_cost'] = total_cost if total_cost is not None else 0
         return context
-
 
 class CostReportList(ListView):
     model = CostReport

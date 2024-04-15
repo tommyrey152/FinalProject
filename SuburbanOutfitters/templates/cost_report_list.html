@@ -31,13 +31,14 @@
             </tr>
             {% endfor %}
         </tbody>
+        <!-- Display total cost in table footer -->
+        <tfoot>
+            <tr>
+                <td><strong>Total Cost</strong></td>
+                <td>${{ total_cost }}</td>
+                <td colspan="2"></td>
+            </tr>
+        </tfoot>
     </table>
-
-    <!-- Display total cost -->
-    <div class="row">
-        <div class="col-md-12 text-right">
-            <h4>Total Cost: ${{ total_cost }}</h4>
-        </div>
-    </div>
 </div>
 {% endblock %}
